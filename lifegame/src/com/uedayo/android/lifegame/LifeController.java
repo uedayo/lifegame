@@ -12,6 +12,7 @@ public class LifeController {
     Button button;
     Life life;
     Context context;
+    boolean nextLivingState;
 
     /**
      * コンストラクタ
@@ -36,7 +37,7 @@ public class LifeController {
 
             @Override
             public void onClick(View v) {
-                LifeController.this.life.changeLive();
+                LifeController.this.life.reverseLivingState();
                 refresh();
             }
         });
@@ -46,7 +47,7 @@ public class LifeController {
      * 生死に応じてボタンの表示を更新する
      */
     private void refresh() {
-        boolean death = life.isLiveNow();
+        boolean death = life.isLiving();
         int drawableId = death ? R.drawable.white : R.drawable.black;
         Drawable background = context.getResources().getDrawable(drawableId);
         button.setBackgroundDrawable(background);
@@ -55,7 +56,42 @@ public class LifeController {
     /**
      * 現在の生死を返す
      */
-    public boolean isLive() {
-        return life.isLiveNow();
+    public boolean isLiving() {
+        return life.isLiving();
+    }
+    
+    /**
+     * 次の生死をセットする
+     * 
+     * @param liveNum 現在の周囲の生きているLifeの数
+     */
+    public void setNextLivingState(int liveNum) {
+        switch (liveNum) {
+            // 0,1の場合、過疎により死滅
+            case 0:
+            case 1:
+                nextLivingState = false;
+                break;
+            // 2の場合、現在の状態が継続
+            case 2:
+                nextLivingState = life.isLiving();
+                break;
+            // 3の場合、死んでいる場合でも新たに生成
+            case 3:
+                nextLivingState = true;
+                break;
+            // 4以上の場合、過密により死滅
+            default:
+                nextLivingState = false;
+                break;
+        }
+        life.setNextLivingState(nextLivingState);
+    }
+
+    /**
+     * 次の状態に遷移
+     */
+    public void update() {
+        life.updateLivingState();
     }
 }

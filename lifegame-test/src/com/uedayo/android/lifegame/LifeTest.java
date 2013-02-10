@@ -3,9 +3,6 @@ package com.uedayo.android.lifegame;
 
 import android.test.AndroidTestCase;
 
-/**
- * Lifeクラスのテスト
- */
 public class LifeTest extends AndroidTestCase {
 
     Life life;
@@ -22,14 +19,14 @@ public class LifeTest extends AndroidTestCase {
     }
 
     /**
-     * 次に生きているようにセットする
+     * 次に生きるようにセットする
      */
-    public void testSetDeathNextAsFalse() {
+    public void testSetLiveNextToLive() {
         // SetUp
         boolean expected = true;
 
         // Execute
-        life.setLiveNext(true);
+        life.setNextLivingState(true);
         boolean actual = life.isLiveNext();
 
         // Verify
@@ -39,12 +36,12 @@ public class LifeTest extends AndroidTestCase {
     /**
      * 次に死ぬようにセットする
      */
-    public void testSetDeathNextAsTrue() {
+    public void testSetLivingStateToDeath() {
         // SetUp
         boolean expected = false;
 
         // Execute
-        life.setLiveNext(false);
+        life.setNextLivingState(false);
         boolean actual = life.isLiveNext();
 
         // Verify
@@ -57,10 +54,10 @@ public class LifeTest extends AndroidTestCase {
     public void testRefreshToLive() {
         // SetUp
         boolean expected = true;
-        life.setLiveNext(true);
+        life.setNextLivingState(true);
 
         // Execute
-        boolean actual = life.refresh();
+        boolean actual = life.updateLivingState();
 
         // Verify
         assertEquals(expected, actual);
@@ -72,10 +69,10 @@ public class LifeTest extends AndroidTestCase {
     public void testRefreshToDeath() {
         // SetUp
         boolean expected = false;
-        life.setLiveNext(false);
+        life.setNextLivingState(false);
 
         // Execute
-        boolean actual = life.refresh();
+        boolean actual = life.updateLivingState();
 
         // Verify
         assertEquals(expected, actual);
@@ -84,32 +81,32 @@ public class LifeTest extends AndroidTestCase {
     /**
      * 今の生死を反転させた結果生きる
      */
-    public void testChangeDeathNextToLive() {
+    public void testChangeLivingStateToLive() {
         // SetUp
         boolean expected = true;
         life.setLive(false);
 
         // Execute
-        life.changeLive();
+        life.reverseLivingState();
 
         // Verify
-        boolean actual = life.isLiveNow();
+        boolean actual = life.isLiving();
         assertEquals(expected, actual);
     }
 
     /**
      * 次の生死を反転させた結果死ぬ
      */
-    public void testChangeDeathNextToDeath() {
+    public void testChangeLivingStateToDeath() {
         // SetUp
         boolean expected = false;
         life.setLive(true);
 
         // Execute
-        life.changeLive();
+        life.reverseLivingState();
 
         // Verify
-        boolean actual = life.isLiveNow();
+        boolean actual = life.isLiving();
         assertEquals(expected, actual);
     }
 }
