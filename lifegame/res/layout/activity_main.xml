@@ -5,10 +5,208 @@
     tools:context=".MainActivity" >
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/hello_world" />
+        android:text="@string/life_game" />
+
+    <LinearLayout
+        android:id="@+id/info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView"
+        android:layout_centerHorizontal="true" >
+
+        <TextView
+            android:id="@+id/label_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_time" />
+
+        <Chronometer
+            android:id="@+id/chronometer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/label_num_life"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_num_life" />
+
+        <TextView
+            android:id="@+id/num_life"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/default_num_life" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lifemap"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btns_operation"
+        android:layout_below="@+id/info"
+        android:gravity="center" >
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/black"
+            android:gravity="center" >
+
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <Button
+                    android:id="@+id/btn_life11"
+                    style="@style/BtnLife" />
+
+                <Button
+                    android:id="@+id/btn_life12"
+                    style="@style/BtnLife" />
+
+                <Button
+                    android:id="@+id/btn_life13"
+                    style="@style/BtnLife" />
+
+                <Button
+                    android:id="@+id/btn_life14"
+                    style="@style/BtnLife" />
+
+                <Button
+                    android:id="@+id/btn_life15"
+                    style="@style/BtnLife" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <Button
+                    android:id="@+id/btn_life21"
+                    style="@style/BtnLife" />
+
+                <Button
+                    android:id="@+id/btn_life22"
+                    style="@style/BtnLife" />
+
+                <Button
+                    android:id="@+id/btn_life23"
+                    style="@style/BtnLife" />
+
+                <Button
+                    android:id="@+id/btn_life24"
+                    style="@style/BtnLife" />
+
+                <Button
+                    android:id="@+id/btn_life25"
+                    style="@style/BtnLife" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <Button
+                    android:id="@+id/btn_life31"
+                    style="@style/BtnLife" />
+
+                <Button
+                    android:id="@+id/btn_life32"
+                    style="@style/BtnLife" />
+
+                <Button
+                    android:id="@+id/btn_life33"
+                    style="@style/BtnLife" />
+
+                <Button
+                    android:id="@+id/btn_life34"
+                    style="@style/BtnLife" />
+
+                <Button
+                    android:id="@+id/btn_life35"
+                    style="@style/BtnLife" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <Button
+                    android:id="@+id/btn_life41"
+                    style="@style/BtnLife" />
+
+                <Button
+                    android:id="@+id/btn_life42"
+                    style="@style/BtnLife" />
+
+                <Button
+                    android:id="@+id/btn_life43"
+                    style="@style/BtnLife" />
+
+                <Button
+                    android:id="@+id/btn_life44"
+                    style="@style/BtnLife" />
+
+                <Button
+                    android:id="@+id/btn_life45"
+                    style="@style/BtnLife" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <Button
+                    android:id="@+id/btn_life51"
+                    style="@style/BtnLife" />
+
+                <Button
+                    android:id="@+id/btn_life52"
+                    style="@style/BtnLife" />
+
+                <Button
+                    android:id="@+id/btn_life53"
+                    style="@style/BtnLife" />
+
+                <Button
+                    android:id="@+id/btn_life54"
+                    style="@style/BtnLife" />
+
+                <Button
+                    android:id="@+id/btn_life55"
+                    style="@style/BtnLife" />
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btns_operation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/random"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/random" />
+
+        <Button
+            android:id="@+id/startstop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/start" />
+    </LinearLayout>
 
 </RelativeLayout>

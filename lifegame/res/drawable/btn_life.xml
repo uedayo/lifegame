@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- pressed -->
+    <item android:drawable="@drawable/black" android:state_pressed="true"/>
+    <!-- released -->
+    <item android:drawable="@drawable/white" android:state_pressed="false"/>
+    <!-- default -->
+    <item android:drawable="@drawable/white"/>
+
+</selector>
