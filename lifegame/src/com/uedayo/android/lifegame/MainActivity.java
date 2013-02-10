@@ -18,7 +18,7 @@ public class MainActivity extends Activity {
     };
     // LifeController‚ðŠi”[‚·‚é”z—ñ
     LifeController[][] lifeControllers = new LifeController[lifeButtons.length][lifeButtons[0].length];
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

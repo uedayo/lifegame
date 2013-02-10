@@ -36,7 +36,7 @@ public class LifeController {
 
             @Override
             public void onClick(View v) {
-                LifeController.this.life.changeDeath();
+                LifeController.this.life.changeLive();
                 refresh();
             }
         });
@@ -46,9 +46,16 @@ public class LifeController {
      * 生死に応じてボタンの表示を更新する
      */
     private void refresh() {
-        boolean death = life.isDeath();
+        boolean death = life.isLiveNow();
         int drawableId = death ? R.drawable.white : R.drawable.black;
         Drawable background = context.getResources().getDrawable(drawableId);
         button.setBackgroundDrawable(background);
+    }
+    
+    /**
+     * 現在の生死を返す
+     */
+    public boolean isLive() {
+        return life.isLiveNow();
     }
 }

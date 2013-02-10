@@ -26,11 +26,11 @@ public class LifeTest extends AndroidTestCase {
      */
     public void testSetDeathNextAsFalse() {
         // SetUp
-        boolean expected = false;
+        boolean expected = true;
 
         // Execute
-        life.setDeathNext(false);
-        boolean actual = life.isDeathNext();
+        life.setLiveNext(true);
+        boolean actual = life.isLiveNext();
 
         // Verify
         assertEquals(expected, actual);
@@ -41,11 +41,11 @@ public class LifeTest extends AndroidTestCase {
      */
     public void testSetDeathNextAsTrue() {
         // SetUp
-        boolean expected = true;
+        boolean expected = false;
 
         // Execute
-        life.setDeathNext(true);
-        boolean actual = life.isDeathNext();
+        life.setLiveNext(false);
+        boolean actual = life.isLiveNext();
 
         // Verify
         assertEquals(expected, actual);
@@ -56,8 +56,8 @@ public class LifeTest extends AndroidTestCase {
      */
     public void testRefreshToLive() {
         // SetUp
-        boolean expected = false;
-        life.setDeathNext(false);
+        boolean expected = true;
+        life.setLiveNext(true);
 
         // Execute
         boolean actual = life.refresh();
@@ -71,8 +71,8 @@ public class LifeTest extends AndroidTestCase {
      */
     public void testRefreshToDeath() {
         // SetUp
-        boolean expected = true;
-        life.setDeathNext(true);
+        boolean expected = false;
+        life.setLiveNext(false);
 
         // Execute
         boolean actual = life.refresh();
@@ -86,14 +86,14 @@ public class LifeTest extends AndroidTestCase {
      */
     public void testChangeDeathNextToLive() {
         // SetUp
-        boolean expected = false;
-        life.setDeath(true);
+        boolean expected = true;
+        life.setLive(false);
 
         // Execute
-        life.changeDeath();
+        life.changeLive();
 
         // Verify
-        boolean actual = life.isDeath();
+        boolean actual = life.isLiveNow();
         assertEquals(expected, actual);
     }
 
@@ -102,14 +102,14 @@ public class LifeTest extends AndroidTestCase {
      */
     public void testChangeDeathNextToDeath() {
         // SetUp
-        boolean expected = true;
-        life.setDeath(false);
+        boolean expected = false;
+        life.setLive(true);
 
         // Execute
-        life.changeDeath();
+        life.changeLive();
 
         // Verify
-        boolean actual = life.isDeath();
+        boolean actual = life.isLiveNow();
         assertEquals(expected, actual);
     }
 }

@@ -2,51 +2,51 @@ package com.uedayo.android.lifegame;
 
 public class Life {
 
-    private boolean death = true;
-    private boolean deathNext = true;
+    private boolean live = false;
+    private boolean liveNext = false;
     
     /**
-     * 次に死ぬかどうかをセットする
+     * 次の生死をセットする
      * 
-     * @param deathNext 次に死ぬならtrue
+     * @param deathNext 次に生きているならtrue
      */
-    public void setDeathNext(boolean deathNext) {
-        this.deathNext = deathNext;
+    public void setLiveNext(boolean liveNext) {
+        this.liveNext = liveNext;
     }
     
     /**
      * 生死を更新する
      */
     public boolean refresh() {
-        death = deathNext;
-        return death;
+        live = liveNext;
+        return live;
     }
 
     /**
      * 生死を反転する
      */
-    public void changeDeath() {
-        death = death ? false : true;
+    public void changeLive() {
+        live = live ? false : true;
     }
     
     /**
      * 次に生きるか死ぬかを確認する(テスト用)
      */
-    boolean isDeathNext() {
-        return deathNext;
+    boolean isLiveNext() {
+        return liveNext;
     }
 
     /**
      * 今の生死を設定する(テスト用)
      */
-    void setDeath(boolean death) {
-        this.death = death;
+    void setLive(boolean live) {
+        this.live = live;
     }
     
     /**
      * 今の生死を確認する(テスト用)
      */
-    boolean isDeath() {
-        return death;
+    boolean isLive() {
+        return live;
     }
 }
