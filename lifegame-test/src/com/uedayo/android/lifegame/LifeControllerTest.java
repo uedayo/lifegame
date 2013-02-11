@@ -20,7 +20,7 @@ public class LifeControllerTest extends ActivityInstrumentationTestCase2<MainAct
     protected void setUp() throws Exception {
         super.setUp();
         life = new Life();
-        context = getActivity();
+        context = getActivity().getApplicationContext();
         button = new Button(context);
         lifeController = new LifeController(button, life, context);
     }

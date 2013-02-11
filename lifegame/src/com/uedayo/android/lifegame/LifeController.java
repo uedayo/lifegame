@@ -47,8 +47,8 @@ public class LifeController {
      * 生死に応じてボタンの表示を更新する
      */
     private void refresh() {
-        boolean death = life.isLiving();
-        int drawableId = death ? R.drawable.white : R.drawable.black;
+        boolean living = life.isLiving();
+        int drawableId = living ? R.drawable.black : R.drawable.white;
         Drawable background = context.getResources().getDrawable(drawableId);
         button.setBackgroundDrawable(background);
     }
@@ -89,9 +89,28 @@ public class LifeController {
     }
 
     /**
-     * 次の状態に遷移
+     * 次の状態に遷移する
      */
     public void update() {
         life.updateLivingState();
+        refresh();
+    }
+
+    /**
+     * 現在の生死をランダムに設定する
+     */
+    public void random() {
+        int random = (int) Math.round(Math.random());
+        boolean isLiving = random == 1 ? true : false;
+        life.setLive(isLiving);
+        refresh();
+    }
+
+    /**
+     * 現在の生死をリセットする(死に設定する)
+     */
+    public void reset() {
+        life.setLive(false);
+        refresh();
     }
 }

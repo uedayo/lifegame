@@ -197,16 +197,28 @@
         android:orientation="vertical" >
 
         <Button
+            android:id="@+id/startstop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/start" />
+
+        <Button
+            android:id="@+id/step"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/step" />
+
+        <Button
             android:id="@+id/random"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/random" />
 
         <Button
-            android:id="@+id/startstop"
+            android:id="@+id/reset"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/start" />
+            android:text="@string/reset" />
     </LinearLayout>
 
 </RelativeLayout>

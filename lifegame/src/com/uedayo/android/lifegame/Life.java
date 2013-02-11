@@ -39,7 +39,7 @@ public class Life {
     }
 
     /**
-     * 今の生死を設定する(テスト用)
+     * 今の生死を設定する
      */
     void setLive(boolean live) {
         this.currentLivingState = live;

@@ -1,12 +1,15 @@
 package com.uedayo.android.lifegame;
 
-import android.os.Bundle;
-import android.R.integer;
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Chronometer;
+import android.widget.TextView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements OnClickListener{
 
     // Lifeボタンのリソースidを格納する配列
     static final int[][] lifeButtons = {
@@ -20,7 +23,18 @@ public class MainActivity extends Activity {
     // 配列の行、列のインデックスの最大値
     static final int maxRowIndex = lifeButtons.length - 1;
     static final int maxColumnIndex = lifeButtons[0].length - 1;
-    
+
+    // ビュー
+    Chronometer chronometer;
+    TextView txtNumLife;
+    Button btnStartstop;
+    Button btnStep;
+    Button btnRanndom;
+    Button btnReset;
+
+    // 状態
+    private boolean started = false;
+
     // LifeControllerを格納する配列
     LifeController[][] lifeControllers = new LifeController[lifeButtons.length][lifeButtons[0].length];
 
@@ -30,8 +44,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        setLifeController();
+        setView();
     }
 
     @Override
@@ -39,6 +52,31 @@ public class MainActivity extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.activity_main, menu);
         return true;
+    }
+
+    /**
+     * ビューを初期化する
+     */
+    public void setView() {
+        setContentView(R.layout.activity_main);
+        chronometer = (Chronometer) findViewById(R.id.chronometer);
+        txtNumLife = (TextView) findViewById(R.id.num_life);
+        setButtons();
+        setLifeController();
+    }
+
+    /**
+     * ボタンを初期化する
+     */
+    public void setButtons() {
+        btnStartstop = (Button) findViewById(R.id.startstop);
+        btnStep = (Button) findViewById(R.id.step);
+        btnRanndom = (Button) findViewById(R.id.random);
+        btnReset = (Button) findViewById(R.id.reset);
+        btnStartstop.setOnClickListener(this);
+        btnStep.setOnClickListener(this);
+        btnRanndom.setOnClickListener(this);
+        btnReset.setOnClickListener(this);
     }
 
     /**
@@ -58,6 +96,9 @@ public class MainActivity extends Activity {
      * 一定間隔おきに起こる更新処理
      */
     private void refresh() {
+        if(started) {
+            // TODO タイマー処理を追加
+        }
         setNextLivingState();
         updateLivingStatus();
     }
@@ -68,7 +109,7 @@ public class MainActivity extends Activity {
     private void setNextLivingState() {
         for(int i = 0; i < lifeButtons.length; i++) {
             for(int j = 0; j < lifeButtons[i].length; j++) {
-                setLifeCounter(i, j);
+                updateLifeCounter(i, j);
                 lifeControllers[i][j].setNextLivingState(lifeCounter[i][j]);
             }
         }
@@ -90,7 +131,8 @@ public class MainActivity extends Activity {
      * @param i
      * @param j
      */
-    private void setLifeCounter(int i, int j) {
+    private void updateLifeCounter(int i, int j) {
+        lifeCounter[i][j] = 0;
         addTopLeft(i, j);
         addTop(i, j);
         addTopRight(i, j);
@@ -145,7 +187,7 @@ public class MainActivity extends Activity {
     private void addLeft(int i, int j) {
         // 1列目の左に他のLifeは無い
         if(j != 0) {
-            lifeCounter[i][j] += lifeControllers[1][j-1].isLiving() ? 1 : 0;
+            lifeCounter[i][j] += lifeControllers[i][j-1].isLiving() ? 1 : 0;
         }
     }
 
@@ -157,7 +199,7 @@ public class MainActivity extends Activity {
     private void addRight(int i, int j) {
         // 末尾の列の右に他のLifeは無い
         if(j != maxColumnIndex) {
-            lifeCounter[i][j] += lifeControllers[1][j+1].isLiving() ? 1 : 0;
+            lifeCounter[i][j] += lifeControllers[i][j+1].isLiving() ? 1 : 0;
         }
     }
 
@@ -194,6 +236,90 @@ public class MainActivity extends Activity {
         // 末尾の行、末尾の列の右下に他のLifeは無い
         if(i != maxRowIndex && j != maxColumnIndex) {
             lifeCounter[i][j] += lifeControllers[i+1][j+1].isLiving() ? 1 : 0;
+        }
+    }
+
+    /**
+     * ボタンが押された時の動作
+     */
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.startstop:
+                onClickStartStop();
+                break;
+            case R.id.step:
+                onClickStep();
+                break;
+            case R.id.random:
+                onClickRandom();
+                break;
+            case R.id.reset:
+                onClickReset();
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * 開始と中断を行う
+     */
+    private void onClickStartStop() {
+        if(!started) {
+            start();
+        } else {
+            stop();
+        }
+    }
+
+    /**
+     * 開始する
+     */
+    private void start() {
+        started = true;
+        btnStartstop.setText(R.string.stop);
+        chronometer.start();
+        refresh();
+    }
+
+    /**
+     * 終了する
+     */
+    private void stop() {
+        started = false;
+        btnStartstop.setText(R.string.start);
+        chronometer.stop();
+    }
+
+    /**
+     * ステップ実行する
+     */
+    private void onClickStep() {
+        started = false;
+        chronometer.stop();
+        refresh();
+    }
+
+    /**
+     * 各Lifeの現在の生死をランダムで設定する
+     */
+    private void onClickRandom() {
+        for(int i = 0; i < lifeButtons.length; i++) {
+            for(int j = 0; j < lifeButtons[i].length; j++) {
+                lifeControllers[i][j].random();
+            }
+        }
+    }
+
+    /**
+     * リセットを行う
+     */
+    private void onClickReset() {
+        for(int i = 0; i < lifeButtons.length; i++) {
+            for(int j = 0; j < lifeButtons[i].length; j++) {
+                lifeControllers[i][j].reset();
+            }
         }
     }
 }
