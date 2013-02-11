@@ -1,7 +1,16 @@
 package com.uedayo.android.lifegame;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+import com.uedayo.android.lifegame.dao.SettingDAO;
+import com.uedayo.android.util.SharedPreferencesUtil;
+
+import android.R.integer;
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,7 +42,15 @@ public class MainActivity extends Activity implements OnClickListener{
     Button btnReset;
 
     // 状態
-    private boolean started = false;
+    private boolean isStarted = false;
+
+    // タイマー
+    private Timer timer;
+    private TimerTask timerTask;
+    private Handler mHandler;
+
+    // 更新間隔
+    private int refreshInterval;
 
     // LifeControllerを格納する配列
     LifeController[][] lifeControllers = new LifeController[lifeButtons.length][lifeButtons[0].length];
@@ -45,6 +62,9 @@ public class MainActivity extends Activity implements OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setView();
+        SharedPreferencesUtil.initialize(getApplicationContext());
+        refreshInterval = SettingDAO.getRefreshInterval();
+        mHandler = new Handler();
     }
 
     @Override
@@ -96,11 +116,9 @@ public class MainActivity extends Activity implements OnClickListener{
      * 一定間隔おきに起こる更新処理
      */
     private void refresh() {
-        if(started) {
-            // TODO タイマー処理を追加
-        }
         setNextLivingState();
         updateLivingStatus();
+        updateNumLife();
     }
 
     /**
@@ -266,37 +284,74 @@ public class MainActivity extends Activity implements OnClickListener{
      * 開始と中断を行う
      */
     private void onClickStartStop() {
-        if(!started) {
-            start();
+        if(!isStarted) {
+            startLifecycle();
+            restartChronometer();
         } else {
-            stop();
+            stopLifecycle();
+            resetChronometer();
         }
     }
 
     /**
      * 開始する
      */
-    private void start() {
-        started = true;
+    private void startLifecycle() {
+        if(isStarted) {
+            return;
+        }
+        startTimer();
+        isStarted = true;
         btnStartstop.setText(R.string.stop);
-        chronometer.start();
-        refresh();
+    }
+
+    /**
+     * タイマーをセットする
+     */
+    private void startTimer() {
+        timer = new Timer();
+        timerTask = new TimerTask() {
+            
+            @Override
+            public void run() {
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        refresh();
+                    }
+                });
+            }
+        };
+        timer.schedule(timerTask, refreshInterval, refreshInterval);
     }
 
     /**
      * 終了する
      */
-    private void stop() {
-        started = false;
+    private void stopLifecycle() {
+        stopTimer();
+        isStarted = false;
         btnStartstop.setText(R.string.start);
-        chronometer.stop();
     }
 
+    /**
+     * タイマーを停止する
+     */
+    private void stopTimer() {
+        if (timer == null || timerTask == null) {
+            return;
+        }
+        timer.cancel();
+        timer = null;
+        isStarted = false;
+    }
+    
     /**
      * ステップ実行する
      */
     private void onClickStep() {
-        started = false;
+        isStarted = false;
+        stopLifecycle();
         chronometer.stop();
         refresh();
     }
@@ -305,21 +360,63 @@ public class MainActivity extends Activity implements OnClickListener{
      * 各Lifeの現在の生死をランダムで設定する
      */
     private void onClickRandom() {
+        stopLifecycle();
         for(int i = 0; i < lifeButtons.length; i++) {
             for(int j = 0; j < lifeButtons[i].length; j++) {
                 lifeControllers[i][j].random();
             }
         }
+        resetChronometer();
+        updateNumLife();
     }
 
     /**
-     * リセットを行う
+     * 画面を初期状態にする
      */
     private void onClickReset() {
+        stopLifecycle();
         for(int i = 0; i < lifeButtons.length; i++) {
             for(int j = 0; j < lifeButtons[i].length; j++) {
                 lifeControllers[i][j].reset();
             }
         }
+        resetChronometer();
+        updateNumLife();
+    }
+
+    /**
+     * タイマーをリセットする
+     */
+    private void resetChronometer() {
+        chronometer.stop();
+        chronometer.setBase(SystemClock.elapsedRealtime());
+    }
+
+    /**
+     * タイマーを再実行する
+     */
+    private void restartChronometer() {
+        chronometer.setBase(SystemClock.elapsedRealtime());
+        chronometer.start();
+    }
+
+    /**
+     * 生きている数を更新する
+     */
+    private void updateNumLife() {
+        txtNumLife.setText(Integer.toString(getNumLife()));
+    }
+
+    /**
+     * 生きている数をカウントする
+     */
+    private int getNumLife() {
+        int livingLifeNum = 0;
+        for(int i = 0; i < lifeButtons.length; i++) {
+            for(int j = 0; j < lifeButtons[i].length; j++) {
+                livingLifeNum += lifeControllers[i][j].isLiving() ? 1 : 0;
+            }
+        }
+        return livingLifeNum;
     }
 }

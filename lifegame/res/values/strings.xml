@@ -4,8 +4,8 @@
     <string name="app_name">Lifegame</string>
     <string name="life_game">ライフゲーム</string>
     <string name="menu_settings">設定</string>
-    <string name="label_time">経過時間</string>
-    <string name="label_num_life">生命の数</string>
+    <string name="label_time">経過時間: </string>
+    <string name="label_num_life">生命の数: </string>
     <string name="default_num_life">0</string>
     <string name="start">スタート</string>
     <string name="stop">ストップ</string>

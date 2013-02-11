@@ -13,7 +13,7 @@
         android:text="@string/life_game" />
 
     <LinearLayout
-        android:id="@+id/info"
+        android:id="@+id/chrono_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView"
@@ -29,6 +29,14 @@
             android:id="@+id/chronometer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/info_num_life"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/chrono_info"
+        android:layout_centerHorizontal="true" >
 
         <TextView
             android:id="@+id/label_num_life"
@@ -48,7 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/btns_operation"
-        android:layout_below="@+id/info"
+        android:layout_below="@+id/info_num_life"
         android:gravity="center" >
 
         <TableLayout
