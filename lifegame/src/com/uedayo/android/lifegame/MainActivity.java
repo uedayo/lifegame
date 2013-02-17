@@ -59,11 +59,8 @@ public class MainActivity extends Activity implements OnClickListener, RefreshLi
     // LifeButtonを格納する配列
     Button[][] lifeButtons = new Button[lifeButtonIds.length][lifeButtonIds[0].length];
 
-    // LifeControllerを格納する配列
-    LifeManager[][] lifeManagers = new LifeManager[lifeButtonIds.length][lifeButtonIds[0].length];
-
-    // 周囲の生きているLifeの数を格納する配列
-    int[][] lifeCounter = new int[lifeButtonIds.length][lifeButtonIds[0].length];
+    // LifeMap
+    LifeMap lifeMap = new LifeMap(lifeButtonIds.length, lifeButtonIds[0].length);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,8 +111,7 @@ public class MainActivity extends Activity implements OnClickListener, RefreshLi
             for(int j = 0; j < lifeButtonIds[i].length; j++) {
                 lifeButtons[i][j] = (Button) findViewById(lifeButtonIds[i][j]);
                 lifeButtons[i][j].setOnClickListener(this);
-                lifeManagers[i][j] = new LifeManager();
-                lifeManagers[i][j].setListener(this);
+                lifeMap.init(this);
             }
         }
     }
@@ -124,145 +120,9 @@ public class MainActivity extends Activity implements OnClickListener, RefreshLi
      * 一定間隔おきに起こる更新処理
      */
     private void refresh() {
-        setNextLivingState();
-        updateLivingStatus();
+        lifeMap.setNextLivingState();
+        lifeMap.updateLivingStatus();
         updateNumLife();
-    }
-
-    /**
-     * 次の生死をセットする
-     */
-    private void setNextLivingState() {
-        for(int i = 0; i < lifeButtonIds.length; i++) {
-            for(int j = 0; j < lifeButtonIds[i].length; j++) {
-                updateLifeCounter(i, j);
-                lifeManagers[i][j].setNextLivingState(lifeCounter[i][j]);
-            }
-        }
-    }
-
-    /**
-     * 次の状態に移る
-     */
-    private void updateLivingStatus() {
-        for(int i = 0; i < lifeButtonIds.length; i++) {
-            for(int j = 0; j < lifeButtonIds[i].length; j++) {
-                lifeManagers[i][j].update();
-            }
-        }
-    }
-
-    /**
-     * 周りの生きているLifeの数を加算する
-     * @param i
-     * @param j
-     */
-    private void updateLifeCounter(int i, int j) {
-        lifeCounter[i][j] = 0;
-        addTopLeft(i, j);
-        addTop(i, j);
-        addTopRight(i, j);
-        addLeft(i, j);
-        addRight(i, j);
-        addBottomLeft(i, j);
-        addBottom(i, j);
-        addBottomRight(i, j);
-    }
-
-    /**
-     * 左上が生きていればカウント
-     * @param i
-     * @param j
-     */
-    private void addTopLeft(int i, int j) {
-        // 1行目、1列目の左上に他のLifeは無い
-        if(i != 0 && j != 0) {
-            lifeCounter[i][j] += lifeManagers[i-1][j-1].isLiving() ? 1 : 0;
-        }
-    }
-
-    /**
-     * 真上が生きていればカウント
-     * @param i
-     * @param j
-     */
-    private void addTop(int i, int j) {
-        // 1行目の上に他のLifeは無い
-        if(i != 0) {
-            lifeCounter[i][j] += lifeManagers[i-1][j].isLiving() ? 1 : 0;
-        }
-    }
-
-    /**
-     * 右上が生きていればカウント
-     * @param i
-     * @param j
-     */
-    private void addTopRight(int i, int j) {
-        // 1行目、末尾の列の右上に他のLifeは無い
-        if(i != 0 && j != maxColumnIndex) {
-            lifeCounter[i][j] += lifeManagers[i-1][j+1].isLiving() ? 1 : 0;
-        }
-    }
-
-    /**
-     * 真左が生きていればカウント
-     * @param i
-     * @param j
-     */
-    private void addLeft(int i, int j) {
-        // 1列目の左に他のLifeは無い
-        if(j != 0) {
-            lifeCounter[i][j] += lifeManagers[i][j-1].isLiving() ? 1 : 0;
-        }
-    }
-
-    /**
-     * 真右が生きていればカウント
-     * @param i
-     * @param j
-     */
-    private void addRight(int i, int j) {
-        // 末尾の列の右に他のLifeは無い
-        if(j != maxColumnIndex) {
-            lifeCounter[i][j] += lifeManagers[i][j+1].isLiving() ? 1 : 0;
-        }
-    }
-
-    /**
-     * 左下が生きていればカウント
-     * @param i
-     * @param j
-     */
-    private void addBottomLeft(int i, int j) {
-        // 末尾の行、1列目の左下に他のLifeは無い
-        if(i != maxRowIndex && j != 0) {
-            lifeCounter[i][j] += lifeManagers[i+1][j-1].isLiving() ? 1 : 0;
-        }
-    }
-
-    /**
-     * 真下が生きていればカウント
-     * @param i
-     * @param j
-     */
-    private void addBottom(int i, int j) {
-        // 末尾の行の下に他のLifeは無い
-        if(i != maxRowIndex) {
-            lifeCounter[i][j] += lifeManagers[i+1][j].isLiving() ? 1 : 0;
-        }
-    }
-
-    /**
-     * 右下が生きていればカウント
-     * @param i
-     * @param j
-     */
-    private void addBottomRight(int i, int j) {
-        // 末尾の行、末尾の列の右下に他のLifeは無い
-        if(i != maxRowIndex && j != maxColumnIndex) {
-            lifeCounter[i][j] += lifeManagers[i+1][j+1].isLiving() ? 1 : 0;
-        }
     }
 
     /**
@@ -284,103 +144,103 @@ public class MainActivity extends Activity implements OnClickListener, RefreshLi
                 onClickReset();
                 break;
             case R.id.btn_life11:
-                lifeManagers[0][0].reverseLivingState();
+                lifeMap.reverseLivingState(0,0);
                 refreshButtonStatus();
                 break;
             case R.id.btn_life12:
-                lifeManagers[0][1].reverseLivingState();
+                lifeMap.reverseLivingState(0,1);
                 refreshButtonStatus();
                 break;
             case R.id.btn_life13:
-                lifeManagers[0][2].reverseLivingState();
+                lifeMap.reverseLivingState(0,2);
                 refreshButtonStatus();
                 break;
             case R.id.btn_life14:
-                lifeManagers[0][3].reverseLivingState();
+                lifeMap.reverseLivingState(0,3);
                 refreshButtonStatus();
                 break;
             case R.id.btn_life15:
-                lifeManagers[0][4].reverseLivingState();
+                lifeMap.reverseLivingState(0,4);
                 refreshButtonStatus();
                 break;
             case R.id.btn_life21:
-                lifeManagers[1][0].reverseLivingState();
+                lifeMap.reverseLivingState(1,0);
                 refreshButtonStatus();
                 break;
             case R.id.btn_life22:
-                lifeManagers[1][1].reverseLivingState();
+                lifeMap.reverseLivingState(1,1);
                 refreshButtonStatus();
                 break;
             case R.id.btn_life23:
-                lifeManagers[1][2].reverseLivingState();
+                lifeMap.reverseLivingState(1,2);
                 refreshButtonStatus();
                 break;
             case R.id.btn_life24:
-                lifeManagers[1][3].reverseLivingState();
+                lifeMap.reverseLivingState(1,3);
                 refreshButtonStatus();
                 break;
             case R.id.btn_life25:
-                lifeManagers[1][4].reverseLivingState();
+                lifeMap.reverseLivingState(1,4);
                 refreshButtonStatus();
                 break;
             case R.id.btn_life31:
-                lifeManagers[2][0].reverseLivingState();
+                lifeMap.reverseLivingState(2,0);
                 refreshButtonStatus();
                 break;
             case R.id.btn_life32:
-                lifeManagers[2][1].reverseLivingState();
+                lifeMap.reverseLivingState(2,1);
                 refreshButtonStatus();
                 break;
             case R.id.btn_life33:
-                lifeManagers[2][2].reverseLivingState();
+                lifeMap.reverseLivingState(2,2);
                 refreshButtonStatus();
                 break;
             case R.id.btn_life34:
-                lifeManagers[2][3].reverseLivingState();
+                lifeMap.reverseLivingState(2,3);
                 refreshButtonStatus();
                 break;
             case R.id.btn_life35:
-                lifeManagers[2][4].reverseLivingState();
+                lifeMap.reverseLivingState(2,4);
                 refreshButtonStatus();
                 break;
             case R.id.btn_life41:
-                lifeManagers[3][0].reverseLivingState();
+                lifeMap.reverseLivingState(3,0);
                 refreshButtonStatus();
                 break;
             case R.id.btn_life42:
-                lifeManagers[3][1].reverseLivingState();
+                lifeMap.reverseLivingState(3,1);
                 refreshButtonStatus();
                 break;
             case R.id.btn_life43:
-                lifeManagers[3][2].reverseLivingState();
+                lifeMap.reverseLivingState(3,2);
                 refreshButtonStatus();
                 break;
             case R.id.btn_life44:
-                lifeManagers[3][3].reverseLivingState();
+                lifeMap.reverseLivingState(3,3);
                 refreshButtonStatus();
                 break;
             case R.id.btn_life45:
-                lifeManagers[3][4].reverseLivingState();
+                lifeMap.reverseLivingState(3,4);
                 refreshButtonStatus();
                 break;
             case R.id.btn_life51:
-                lifeManagers[4][0].reverseLivingState();
+                lifeMap.reverseLivingState(4,0);
                 refreshButtonStatus();
                 break;
             case R.id.btn_life52:
-                lifeManagers[4][1].reverseLivingState();
+                lifeMap.reverseLivingState(4,1);
                 refreshButtonStatus();
                 break;
             case R.id.btn_life53:
-                lifeManagers[4][2].reverseLivingState();
+                lifeMap.reverseLivingState(4,2);
                 refreshButtonStatus();
                 break;
             case R.id.btn_life54:
-                lifeManagers[4][3].reverseLivingState();
+                lifeMap.reverseLivingState(4,3);
                 refreshButtonStatus();
                 break;
             case R.id.btn_life55:
-                lifeManagers[4][4].reverseLivingState();
+                lifeMap.reverseLivingState(4,4);
                 refreshButtonStatus();
                 break;
             default:
@@ -469,11 +329,7 @@ public class MainActivity extends Activity implements OnClickListener, RefreshLi
      */
     private void onClickRandom() {
         stopLifecycle();
-        for(int i = 0; i < lifeButtonIds.length; i++) {
-            for(int j = 0; j < lifeButtonIds[i].length; j++) {
-                lifeManagers[i][j].random();
-            }
-        }
+        lifeMap.random();
         resetChronometer();
         updateNumLife();
     }
@@ -483,11 +339,7 @@ public class MainActivity extends Activity implements OnClickListener, RefreshLi
      */
     private void onClickReset() {
         stopLifecycle();
-        for(int i = 0; i < lifeButtonIds.length; i++) {
-            for(int j = 0; j < lifeButtonIds[i].length; j++) {
-                lifeManagers[i][j].reset();
-            }
-        }
+        lifeMap.reset();
         resetChronometer();
         updateNumLife();
     }
@@ -512,21 +364,9 @@ public class MainActivity extends Activity implements OnClickListener, RefreshLi
      * 生きている数を更新する
      */
     private void updateNumLife() {
-        txtNumLife.setText(Integer.toString(getNumLife()));
+        txtNumLife.setText(Integer.toString(lifeMap.getNumLife()));
     }
 
-    /**
-     * 生きている数をカウントする
-     */
-    private int getNumLife() {
-        int livingLifeNum = 0;
-        for(int i = 0; i < lifeButtonIds.length; i++) {
-            for(int j = 0; j < lifeButtonIds[i].length; j++) {
-                livingLifeNum += lifeManagers[i][j].isLiving() ? 1 : 0;
-            }
-        }
-        return livingLifeNum;
-    }
     
     /**
      * 生死に応じてLifeの表示を更新する
@@ -534,7 +374,7 @@ public class MainActivity extends Activity implements OnClickListener, RefreshLi
     private void refreshButtonStatus() {
         for(int i=0; i < lifeButtonIds.length; i++) {
             for(int j=0; j < lifeButtonIds[i].length; j++) {
-                boolean living = lifeManagers[i][j].isLiving();
+                boolean living = lifeMap.isLiving(i, j);
                 int drawableId = living ? R.drawable.black : R.drawable.white;
                 Drawable background = getResources().getDrawable(drawableId);
                 lifeButtons[i][j].setBackgroundDrawable(background);
