@@ -3,16 +3,12 @@ package com.uedayo.android.lifegame;
 
 import java.util.EventListener;
 
-import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-
-public class LifeController {
+/**
+ * Lifeの状態管理を行うクラス
+ */
+public class LifeManager {
 
     Life life;
-    Context context;
     boolean nextLivingState;
     
     private RefreshListener listener = null;
@@ -23,9 +19,8 @@ public class LifeController {
      * @param button
      * @param life
      */
-    public LifeController(Life life, Context context) {
-        this.life = life;
-        this.context = context;
+    public LifeManager() {
+        life = new Life();
     }
 
     /**
@@ -114,5 +109,28 @@ public class LifeController {
      */
     public void removeListener(RefreshListener listener) {
         this.listener = null;
+    }
+    
+    /**
+     * 生死を反転する
+     */
+    public void reverseLivingState() {
+        life.reverseLivingState();
+    }
+    
+    /**
+     * 次に生きるか死ぬかを返す
+     * @return 生きる場合はtrue
+     */
+    public boolean isLiveNext() {
+        return life.isLiveNext();
+    }
+    
+    /**
+     * 今の生死を設定する
+     * @param live
+     */
+    public void setLive(boolean live) {
+        life.setLive(live);
     }
 }

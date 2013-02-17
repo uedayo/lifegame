@@ -3,11 +3,10 @@ package com.uedayo.android.lifegame;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.uedayo.android.lifegame.LifeController.RefreshListener;
+import com.uedayo.android.lifegame.LifeManager.RefreshListener;
 import com.uedayo.android.lifegame.dao.SettingDAO;
 import com.uedayo.android.util.SharedPreferencesUtil;
 
-import android.R.integer;
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -20,6 +19,9 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
 
+/**
+ * Mainアクティビティ
+ */
 public class MainActivity extends Activity implements OnClickListener, RefreshListener{
 
     // Lifeボタンのリソースidを格納する配列
@@ -54,14 +56,11 @@ public class MainActivity extends Activity implements OnClickListener, RefreshLi
     // 更新間隔
     private int refreshInterval;
 
-    // Lifeを格納する配列
-    Life[][] lifes = new Life[lifeButtonIds.length][lifeButtonIds[0].length];
-    
     // LifeButtonを格納する配列
     Button[][] lifeButtons = new Button[lifeButtonIds.length][lifeButtonIds[0].length];
 
     // LifeControllerを格納する配列
-    LifeController[][] lifeControllers = new LifeController[lifeButtonIds.length][lifeButtonIds[0].length];
+    LifeManager[][] lifeManagers = new LifeManager[lifeButtonIds.length][lifeButtonIds[0].length];
 
     // 周囲の生きているLifeの数を格納する配列
     int[][] lifeCounter = new int[lifeButtonIds.length][lifeButtonIds[0].length];
@@ -115,9 +114,8 @@ public class MainActivity extends Activity implements OnClickListener, RefreshLi
             for(int j = 0; j < lifeButtonIds[i].length; j++) {
                 lifeButtons[i][j] = (Button) findViewById(lifeButtonIds[i][j]);
                 lifeButtons[i][j].setOnClickListener(this);
-                lifes[i][j] = new Life();
-                lifeControllers[i][j] = new LifeController(lifes[i][j], this);
-                lifeControllers[i][j].setListener(this);
+                lifeManagers[i][j] = new LifeManager();
+                lifeManagers[i][j].setListener(this);
             }
         }
     }
@@ -138,7 +136,7 @@ public class MainActivity extends Activity implements OnClickListener, RefreshLi
         for(int i = 0; i < lifeButtonIds.length; i++) {
             for(int j = 0; j < lifeButtonIds[i].length; j++) {
                 updateLifeCounter(i, j);
-                lifeControllers[i][j].setNextLivingState(lifeCounter[i][j]);
+                lifeManagers[i][j].setNextLivingState(lifeCounter[i][j]);
             }
         }
     }
@@ -149,7 +147,7 @@ public class MainActivity extends Activity implements OnClickListener, RefreshLi
     private void updateLivingStatus() {
         for(int i = 0; i < lifeButtonIds.length; i++) {
             for(int j = 0; j < lifeButtonIds[i].length; j++) {
-                lifeControllers[i][j].update();
+                lifeManagers[i][j].update();
             }
         }
     }
@@ -179,7 +177,7 @@ public class MainActivity extends Activity implements OnClickListener, RefreshLi
     private void addTopLeft(int i, int j) {
         // 1行目、1列目の左上に他のLifeは無い
         if(i != 0 && j != 0) {
-            lifeCounter[i][j] += lifeControllers[i-1][j-1].isLiving() ? 1 : 0;
+            lifeCounter[i][j] += lifeManagers[i-1][j-1].isLiving() ? 1 : 0;
         }
     }
 
@@ -191,7 +189,7 @@ public class MainActivity extends Activity implements OnClickListener, RefreshLi
     private void addTop(int i, int j) {
         // 1行目の上に他のLifeは無い
         if(i != 0) {
-            lifeCounter[i][j] += lifeControllers[i-1][j].isLiving() ? 1 : 0;
+            lifeCounter[i][j] += lifeManagers[i-1][j].isLiving() ? 1 : 0;
         }
     }
 
@@ -203,7 +201,7 @@ public class MainActivity extends Activity implements OnClickListener, RefreshLi
     private void addTopRight(int i, int j) {
         // 1行目、末尾の列の右上に他のLifeは無い
         if(i != 0 && j != maxColumnIndex) {
-            lifeCounter[i][j] += lifeControllers[i-1][j+1].isLiving() ? 1 : 0;
+            lifeCounter[i][j] += lifeManagers[i-1][j+1].isLiving() ? 1 : 0;
         }
     }
 
@@ -215,7 +213,7 @@ public class MainActivity extends Activity implements OnClickListener, RefreshLi
     private void addLeft(int i, int j) {
         // 1列目の左に他のLifeは無い
         if(j != 0) {
-            lifeCounter[i][j] += lifeControllers[i][j-1].isLiving() ? 1 : 0;
+            lifeCounter[i][j] += lifeManagers[i][j-1].isLiving() ? 1 : 0;
         }
     }
 
@@ -227,7 +225,7 @@ public class MainActivity extends Activity implements OnClickListener, RefreshLi
     private void addRight(int i, int j) {
         // 末尾の列の右に他のLifeは無い
         if(j != maxColumnIndex) {
-            lifeCounter[i][j] += lifeControllers[i][j+1].isLiving() ? 1 : 0;
+            lifeCounter[i][j] += lifeManagers[i][j+1].isLiving() ? 1 : 0;
         }
     }
 
@@ -239,7 +237,7 @@ public class MainActivity extends Activity implements OnClickListener, RefreshLi
     private void addBottomLeft(int i, int j) {
         // 末尾の行、1列目の左下に他のLifeは無い
         if(i != maxRowIndex && j != 0) {
-            lifeCounter[i][j] += lifeControllers[i+1][j-1].isLiving() ? 1 : 0;
+            lifeCounter[i][j] += lifeManagers[i+1][j-1].isLiving() ? 1 : 0;
         }
     }
 
@@ -251,7 +249,7 @@ public class MainActivity extends Activity implements OnClickListener, RefreshLi
     private void addBottom(int i, int j) {
         // 末尾の行の下に他のLifeは無い
         if(i != maxRowIndex) {
-            lifeCounter[i][j] += lifeControllers[i+1][j].isLiving() ? 1 : 0;
+            lifeCounter[i][j] += lifeManagers[i+1][j].isLiving() ? 1 : 0;
         }
     }
 
@@ -263,7 +261,7 @@ public class MainActivity extends Activity implements OnClickListener, RefreshLi
     private void addBottomRight(int i, int j) {
         // 末尾の行、末尾の列の右下に他のLifeは無い
         if(i != maxRowIndex && j != maxColumnIndex) {
-            lifeCounter[i][j] += lifeControllers[i+1][j+1].isLiving() ? 1 : 0;
+            lifeCounter[i][j] += lifeManagers[i+1][j+1].isLiving() ? 1 : 0;
         }
     }
 
@@ -286,103 +284,103 @@ public class MainActivity extends Activity implements OnClickListener, RefreshLi
                 onClickReset();
                 break;
             case R.id.btn_life11:
-                lifes[0][0].reverseLivingState();
+                lifeManagers[0][0].reverseLivingState();
                 refreshButtonStatus();
                 break;
             case R.id.btn_life12:
-                lifes[0][1].reverseLivingState();
+                lifeManagers[0][1].reverseLivingState();
                 refreshButtonStatus();
                 break;
             case R.id.btn_life13:
-                lifes[0][2].reverseLivingState();
+                lifeManagers[0][2].reverseLivingState();
                 refreshButtonStatus();
                 break;
             case R.id.btn_life14:
-                lifes[0][3].reverseLivingState();
+                lifeManagers[0][3].reverseLivingState();
                 refreshButtonStatus();
                 break;
             case R.id.btn_life15:
-                lifes[0][4].reverseLivingState();
+                lifeManagers[0][4].reverseLivingState();
                 refreshButtonStatus();
                 break;
             case R.id.btn_life21:
-                lifes[1][0].reverseLivingState();
+                lifeManagers[1][0].reverseLivingState();
                 refreshButtonStatus();
                 break;
             case R.id.btn_life22:
-                lifes[1][1].reverseLivingState();
+                lifeManagers[1][1].reverseLivingState();
                 refreshButtonStatus();
                 break;
             case R.id.btn_life23:
-                lifes[1][2].reverseLivingState();
+                lifeManagers[1][2].reverseLivingState();
                 refreshButtonStatus();
                 break;
             case R.id.btn_life24:
-                lifes[1][3].reverseLivingState();
+                lifeManagers[1][3].reverseLivingState();
                 refreshButtonStatus();
                 break;
             case R.id.btn_life25:
-                lifes[1][4].reverseLivingState();
+                lifeManagers[1][4].reverseLivingState();
                 refreshButtonStatus();
                 break;
             case R.id.btn_life31:
-                lifes[2][0].reverseLivingState();
+                lifeManagers[2][0].reverseLivingState();
                 refreshButtonStatus();
                 break;
             case R.id.btn_life32:
-                lifes[2][1].reverseLivingState();
+                lifeManagers[2][1].reverseLivingState();
                 refreshButtonStatus();
                 break;
             case R.id.btn_life33:
-                lifes[2][2].reverseLivingState();
+                lifeManagers[2][2].reverseLivingState();
                 refreshButtonStatus();
                 break;
             case R.id.btn_life34:
-                lifes[2][3].reverseLivingState();
+                lifeManagers[2][3].reverseLivingState();
                 refreshButtonStatus();
                 break;
             case R.id.btn_life35:
-                lifes[2][4].reverseLivingState();
+                lifeManagers[2][4].reverseLivingState();
                 refreshButtonStatus();
                 break;
             case R.id.btn_life41:
-                lifes[3][0].reverseLivingState();
+                lifeManagers[3][0].reverseLivingState();
                 refreshButtonStatus();
                 break;
             case R.id.btn_life42:
-                lifes[3][1].reverseLivingState();
+                lifeManagers[3][1].reverseLivingState();
                 refreshButtonStatus();
                 break;
             case R.id.btn_life43:
-                lifes[3][2].reverseLivingState();
+                lifeManagers[3][2].reverseLivingState();
                 refreshButtonStatus();
                 break;
             case R.id.btn_life44:
-                lifes[3][3].reverseLivingState();
+                lifeManagers[3][3].reverseLivingState();
                 refreshButtonStatus();
                 break;
             case R.id.btn_life45:
-                lifes[3][4].reverseLivingState();
+                lifeManagers[3][4].reverseLivingState();
                 refreshButtonStatus();
                 break;
             case R.id.btn_life51:
-                lifes[4][0].reverseLivingState();
+                lifeManagers[4][0].reverseLivingState();
                 refreshButtonStatus();
                 break;
             case R.id.btn_life52:
-                lifes[4][1].reverseLivingState();
+                lifeManagers[4][1].reverseLivingState();
                 refreshButtonStatus();
                 break;
             case R.id.btn_life53:
-                lifes[4][2].reverseLivingState();
+                lifeManagers[4][2].reverseLivingState();
                 refreshButtonStatus();
                 break;
             case R.id.btn_life54:
-                lifes[4][3].reverseLivingState();
+                lifeManagers[4][3].reverseLivingState();
                 refreshButtonStatus();
                 break;
             case R.id.btn_life55:
-                lifes[4][4].reverseLivingState();
+                lifeManagers[4][4].reverseLivingState();
                 refreshButtonStatus();
                 break;
             default:
@@ -473,7 +471,7 @@ public class MainActivity extends Activity implements OnClickListener, RefreshLi
         stopLifecycle();
         for(int i = 0; i < lifeButtonIds.length; i++) {
             for(int j = 0; j < lifeButtonIds[i].length; j++) {
-                lifeControllers[i][j].random();
+                lifeManagers[i][j].random();
             }
         }
         resetChronometer();
@@ -487,7 +485,7 @@ public class MainActivity extends Activity implements OnClickListener, RefreshLi
         stopLifecycle();
         for(int i = 0; i < lifeButtonIds.length; i++) {
             for(int j = 0; j < lifeButtonIds[i].length; j++) {
-                lifeControllers[i][j].reset();
+                lifeManagers[i][j].reset();
             }
         }
         resetChronometer();
@@ -524,7 +522,7 @@ public class MainActivity extends Activity implements OnClickListener, RefreshLi
         int livingLifeNum = 0;
         for(int i = 0; i < lifeButtonIds.length; i++) {
             for(int j = 0; j < lifeButtonIds[i].length; j++) {
-                livingLifeNum += lifeControllers[i][j].isLiving() ? 1 : 0;
+                livingLifeNum += lifeManagers[i][j].isLiving() ? 1 : 0;
             }
         }
         return livingLifeNum;
@@ -536,7 +534,7 @@ public class MainActivity extends Activity implements OnClickListener, RefreshLi
     private void refreshButtonStatus() {
         for(int i=0; i < lifeButtonIds.length; i++) {
             for(int j=0; j < lifeButtonIds[i].length; j++) {
-                boolean living = lifes[i][j].isLiving();
+                boolean living = lifeManagers[i][j].isLiving();
                 int drawableId = living ? R.drawable.black : R.drawable.white;
                 Drawable background = getResources().getDrawable(drawableId);
                 lifeButtons[i][j].setBackgroundDrawable(background);

@@ -1,28 +1,23 @@
 
 package com.uedayo.android.lifegame;
 
-import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
-import android.widget.Button;
 
-public class LifeControllerTest extends ActivityInstrumentationTestCase2<MainActivity> {
+/**
+ * LifeManagerのテスト
+ */
+public class LifeManagerTest extends ActivityInstrumentationTestCase2<MainActivity> {
 
-    public LifeControllerTest() {
+    public LifeManagerTest() {
         super(MainActivity.class);
     }
 
-    Life life;
-    Button button;
-    Context context;
-    LifeController lifeController;
+    LifeManager lifeManager;
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        life = new Life();
-        context = getActivity().getApplicationContext();
-        button = new Button(context);
-        lifeController = new LifeController(life, context);
+        lifeManager = new LifeManager();
     }
 
     @Override
@@ -38,8 +33,8 @@ public class LifeControllerTest extends ActivityInstrumentationTestCase2<MainAct
         boolean expected = false;
 
         // Execute
-        lifeController.setNextLivingState(0);
-        boolean actual = life.isLiveNext();
+        lifeManager.setNextLivingState(0);
+        boolean actual = lifeManager.isLiveNext();
 
         // Verify
         assertEquals(expected, actual);
@@ -53,8 +48,8 @@ public class LifeControllerTest extends ActivityInstrumentationTestCase2<MainAct
         boolean expected = false;
 
         // Execute
-        lifeController.setNextLivingState(1);
-        boolean actual = life.isLiveNext();
+        lifeManager.setNextLivingState(1);
+        boolean actual = lifeManager.isLiveNext();
 
         // Verify
         assertEquals(expected, actual);
@@ -66,11 +61,11 @@ public class LifeControllerTest extends ActivityInstrumentationTestCase2<MainAct
     public void testSetLiveNext2ToDeath() {
         // SetUp
         boolean expected = false;
-        life.setLive(false);
+        lifeManager.setLive(false);
 
         // Execute
-        lifeController.setNextLivingState(2);
-        boolean actual = life.isLiveNext();
+        lifeManager.setNextLivingState(2);
+        boolean actual = lifeManager.isLiveNext();
 
         // Verify
         assertEquals(expected, actual);
@@ -82,11 +77,11 @@ public class LifeControllerTest extends ActivityInstrumentationTestCase2<MainAct
     public void testSetLiveNext2ToLive() {
         // SetUp
         boolean expected = true;
-        life.setLive(true);
+        lifeManager.setLive(true);
 
         // Execute
-        lifeController.setNextLivingState(2);
-        boolean actual = life.isLiveNext();
+        lifeManager.setNextLivingState(2);
+        boolean actual = lifeManager.isLiveNext();
 
         // Verify
         assertEquals(expected, actual);
@@ -98,11 +93,11 @@ public class LifeControllerTest extends ActivityInstrumentationTestCase2<MainAct
     public void testSetLiveNext3FromDeathToLive() {
         // SetUp
         boolean expected = true;
-        life.setLive(false);
+        lifeManager.setLive(false);
 
         // Execute
-        lifeController.setNextLivingState(3);
-        boolean actual = life.isLiveNext();
+        lifeManager.setNextLivingState(3);
+        boolean actual = lifeManager.isLiveNext();
 
         // Verify
         assertEquals(expected, actual);
@@ -114,11 +109,11 @@ public class LifeControllerTest extends ActivityInstrumentationTestCase2<MainAct
     public void testSetLiveNext3FromLiveToLive() {
         // SetUp
         boolean expected = true;
-        life.setLive(true);
+        lifeManager.setLive(true);
 
         // Execute
-        lifeController.setNextLivingState(3);
-        boolean actual = life.isLiveNext();
+        lifeManager.setNextLivingState(3);
+        boolean actual = lifeManager.isLiveNext();
 
         // Verify
         assertEquals(expected, actual);
@@ -130,11 +125,11 @@ public class LifeControllerTest extends ActivityInstrumentationTestCase2<MainAct
     public void testSetLiveNext4FromDeathToDeath() {
         // SetUp
         boolean expected = false;
-        life.setLive(false);
+        lifeManager.setLive(false);
 
         // Execute
-        lifeController.setNextLivingState(4);
-        boolean actual = life.isLiveNext();
+        lifeManager.setNextLivingState(4);
+        boolean actual = lifeManager.isLiveNext();
 
         // Verify
         assertEquals(expected, actual);
@@ -146,11 +141,11 @@ public class LifeControllerTest extends ActivityInstrumentationTestCase2<MainAct
     public void testSetLiveNext4FromLiveToDeath() {
         // SetUp
         boolean expected = false;
-        life.setLive(true);
+        lifeManager.setLive(true);
 
         // Execute
-        lifeController.setNextLivingState(4);
-        boolean actual = life.isLiveNext();
+        lifeManager.setNextLivingState(4);
+        boolean actual = lifeManager.isLiveNext();
 
         // Verify
         assertEquals(expected, actual);
@@ -162,11 +157,11 @@ public class LifeControllerTest extends ActivityInstrumentationTestCase2<MainAct
     public void testSetLiveNext8FromDeathToDeath() {
         // SetUp
         boolean expected = false;
-        life.setLive(false);
+        lifeManager.setLive(false);
 
         // Execute
-        lifeController.setNextLivingState(8);
-        boolean actual = life.isLiveNext();
+        lifeManager.setNextLivingState(8);
+        boolean actual = lifeManager.isLiveNext();
 
         // Verify
         assertEquals(expected, actual);
@@ -178,11 +173,11 @@ public class LifeControllerTest extends ActivityInstrumentationTestCase2<MainAct
     public void testSetLiveNext8FromLiveToDeath() {
         // SetUp
         boolean expected = false;
-        life.setLive(true);
+        lifeManager.setLive(true);
 
         // Execute
-        lifeController.setNextLivingState(8);
-        boolean actual = life.isLiveNext();
+        lifeManager.setNextLivingState(8);
+        boolean actual = lifeManager.isLiveNext();
 
         // Verify
         assertEquals(expected, actual);

@@ -3,6 +3,9 @@ package com.uedayo.android.lifegame;
 
 import android.test.AndroidTestCase;
 
+/**
+ * Lifeのテスト
+ */
 public class LifeTest extends AndroidTestCase {
 
     Life life;
