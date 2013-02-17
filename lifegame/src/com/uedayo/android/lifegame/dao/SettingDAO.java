@@ -7,15 +7,15 @@ import android.content.SharedPreferences;
 
 public class SettingDAO {
 
-    // ƒvƒŠƒtƒ@ƒŒƒ“ƒX–¼
+    // ãƒ—ãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹å
     private static final String SETTING_PREFERENCE_NAME = "SETTING_PREFERENCE_NAME";
 
-    // ƒL[–¼
+    // ã‚­ãƒ¼å
     private static final String KEY_REFRESH_INTERVAL = "KEY_REFRESH_INTERVAL";
     private static final String KEY_ROW_NUM = "KEY_ROW_NUM";
     private static final String KEY_COLUMN_NUM = "KEY_COLUMN_NUM";
 
-    // ƒfƒtƒHƒ‹ƒg’l
+    // ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤
     public static final int DEFAULT_REFRESH_INTERVAL = 200;
     public static final int DEFAULT_ROW_NUM = 5;
     public static final int DEFAULT_COLUMN_NUM = 5;
@@ -27,27 +27,27 @@ public class SettingDAO {
     }
 
     /**
-     * ‰æ–Ê‚ÌXVŠÔŠu
+     * ç”»é¢ã®æ›´æ–°é–“éš”
      * 
-     * @return int ’PˆÊ‚Íms
+     * @return int å˜ä½ã¯ms
      */
     public static int getRefreshInterval() {
         return sStaticSharedPreferences.getInt(KEY_REFRESH_INTERVAL, DEFAULT_REFRESH_INTERVAL);
     }
 
     /**
-     * LifeMap‚Ìs”
+     * LifeMapã®è¡Œæ•°
      * 
-     * @return int s”
+     * @return int è¡Œæ•°
      */
     public static int getRowNum() {
         return sStaticSharedPreferences.getInt(KEY_ROW_NUM, DEFAULT_ROW_NUM);
     }
 
     /**
-     * LifeMap‚Ì—ñ”
+     * LifeMapã®åˆ—æ•°
      * 
-     * @return int —ñ”
+     * @return int åˆ—æ•°
      */
     public static int getColumnNum() {
         return sStaticSharedPreferences.getInt(KEY_COLUMN_NUM, DEFAULT_COLUMN_NUM);

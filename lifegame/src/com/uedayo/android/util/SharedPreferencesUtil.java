@@ -10,7 +10,7 @@ public class SharedPreferencesUtil {
     public static SharedPreferences mSharedPreferences;
 
     /**
-     * ‰Šú‰»ˆ—
+     * åˆæœŸåŒ–å‡¦ç†
      * 
      * @param context
      */
@@ -21,7 +21,7 @@ public class SharedPreferencesUtil {
     }
 
     /**
-     * SharedPreferences‚ğ•Ô‚·
+     * SharedPreferencesã‚’è¿”ã™
      * 
      * @param name
      * @return SharedPreferences
@@ -37,12 +37,12 @@ public class SharedPreferencesUtil {
     }
 
     /**
-     * boolean’l‚Ì•Û‘¶
+     * booleanå€¤ã®ä¿å­˜
      * 
      * @param key
      * @param value
      * @param editor
-     * @return ¬Œ÷‚Étrue
+     * @return æˆåŠŸæ™‚ã«true
      */
     public static boolean putBoolean(String key, Boolean value, SharedPreferences.Editor editor) {
         editor.putBoolean(key, value);
@@ -50,12 +50,12 @@ public class SharedPreferencesUtil {
     }
 
     /**
-     * int’l‚Ì•Û‘¶
+     * intå€¤ã®ä¿å­˜
      * 
      * @param key
      * @param value
      * @param editor
-     * @return ¬Œ÷‚Étrue
+     * @return æˆåŠŸæ™‚ã«true
      */
     public static boolean putInt(String key, int value, SharedPreferences.Editor editor) {
         editor.putInt(key, value);
@@ -63,11 +63,11 @@ public class SharedPreferencesUtil {
     }
 
     /**
-     * ’l‚Ìíœ
+     * å€¤ã®å‰Šé™¤
      * 
      * @param key
      * @param editor
-     * @return ¬Œ÷‚Étrue
+     * @return æˆåŠŸæ™‚ã«true
      */
     public static boolean remove(String key, SharedPreferences.Editor editor) {
         editor.remove(key);
@@ -75,10 +75,10 @@ public class SharedPreferencesUtil {
     }
 
     /**
-     * ‚·‚×‚Ä‚Ìî•ñ‚ğíœ
+     * ã™ã¹ã¦ã®æƒ…å ±ã‚’å‰Šé™¤
      * 
      * @param editor
-     * @return ¬Œ÷‚Ítrue
+     * @return æˆåŠŸæ™‚ã¯true
      */
     public static boolean clear(SharedPreferences.Editor editor) {
         return editor.clear().commit();

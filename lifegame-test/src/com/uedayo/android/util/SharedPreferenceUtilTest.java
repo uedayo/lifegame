@@ -10,10 +10,10 @@ import android.test.ActivityInstrumentationTestCase2;
 
 public class SharedPreferenceUtilTest extends ActivityInstrumentationTestCase2<MainActivity> {
 
-    // ƒvƒŠƒtƒ@ƒŒƒ“ƒX–¼
+    // ãƒ—ãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹å
     private static final String PREF_NAME = "PREF_NAME";
 
-    // ƒL[–¼
+    // ã‚­ãƒ¼å
     private static final String KEY_TEST_BOOLEAN = "KEY_TEST_BOOLEAN";
     private static final String KEY_TEST_INT = "KEY_TEST_INT";
 
@@ -34,7 +34,7 @@ public class SharedPreferenceUtilTest extends ActivityInstrumentationTestCase2<M
     }
 
     /**
-     * boolean’l‚ğ•Û‘¶‚·‚éƒeƒXƒg
+     * booleanå€¤ã‚’ä¿å­˜ã™ã‚‹ãƒ†ã‚¹ãƒˆ
      */
     public void testPutBoolean() {
         // SetUp
@@ -50,7 +50,7 @@ public class SharedPreferenceUtilTest extends ActivityInstrumentationTestCase2<M
     }
 
     /**
-     * int’l‚ğ•Û‘¶‚·‚éƒeƒXƒg
+     * intå€¤ã‚’ä¿å­˜ã™ã‚‹ãƒ†ã‚¹ãƒˆ
      */
     public void testPutInt() {
         // SetUp
@@ -66,7 +66,7 @@ public class SharedPreferenceUtilTest extends ActivityInstrumentationTestCase2<M
     }
 
     /**
-     * ’l‚ğíœ‚·‚éƒeƒXƒg
+     * å€¤ã‚’å‰Šé™¤ã™ã‚‹ãƒ†ã‚¹ãƒˆ
      */
     public void testRemove() {
         // SetUp
@@ -83,7 +83,7 @@ public class SharedPreferenceUtilTest extends ActivityInstrumentationTestCase2<M
     }
 
     /**
-     * ’l‚ğíœ‚·‚éƒeƒXƒg
+     * å€¤ã‚’å‰Šé™¤ã™ã‚‹ãƒ†ã‚¹ãƒˆ
      */
     public void testClear() {
         // SetUp

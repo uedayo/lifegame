@@ -31,7 +31,7 @@ public class LifeControllerTest extends ActivityInstrumentationTestCase2<MainAct
     }
 
     /**
-     * Žü‚è‚É¶‚«‚Ä‚¢‚éLife‚ª0‚¾‚ÆŽŸ‚ÉŽ€‚Ê
+     * å‘¨ã‚Šã«ç”Ÿãã¦ã„ã‚‹LifeãŒ0ã ã¨æ¬¡ã«æ­»ã¬
      */
     public void testSetLiveNext0ToDeath() {
         // SetUp
@@ -46,7 +46,7 @@ public class LifeControllerTest extends ActivityInstrumentationTestCase2<MainAct
     }
 
     /**
-     * Žü‚è‚É¶‚«‚Ä‚¢‚éLife‚ª1‚¾‚ÆŽŸ‚ÉŽ€‚Ê
+     * å‘¨ã‚Šã«ç”Ÿãã¦ã„ã‚‹LifeãŒ1ã ã¨æ¬¡ã«æ­»ã¬
      */
     public void testSetLiveNext1ToDeath() {
         // SetUp
@@ -61,7 +61,7 @@ public class LifeControllerTest extends ActivityInstrumentationTestCase2<MainAct
     }
 
     /**
-     * Ž–‘O‚ÉŽ€‚ñ‚Å‚¨‚èAŽü‚è‚É¶‚«‚Ä‚¢‚éLife‚ª2‚¾‚ÆŽ€‚ñ‚¾‚Ü‚Ü
+     * äº‹å‰ã«æ­»ã‚“ã§ãŠã‚Šã€å‘¨ã‚Šã«ç”Ÿãã¦ã„ã‚‹LifeãŒ2ã ã¨æ­»ã‚“ã ã¾ã¾
      */
     public void testSetLiveNext2ToDeath() {
         // SetUp
@@ -77,7 +77,7 @@ public class LifeControllerTest extends ActivityInstrumentationTestCase2<MainAct
     }
 
     /**
-     * Ž–‘O‚É¶‚«‚Ä‚¨‚èAŽü‚è‚É¶‚«‚Ä‚¢‚éLife‚ª2‚¾‚Æ¶‚«‚½‚Ü‚Ü
+     * äº‹å‰ã«ç”Ÿãã¦ãŠã‚Šã€å‘¨ã‚Šã«ç”Ÿãã¦ã„ã‚‹LifeãŒ2ã ã¨ç”ŸããŸã¾ã¾
      */
     public void testSetLiveNext2ToLive() {
         // SetUp
@@ -93,7 +93,7 @@ public class LifeControllerTest extends ActivityInstrumentationTestCase2<MainAct
     }
 
     /**
-     * Ž–‘O‚ÉŽ€‚ñ‚Å‚¨‚èAŽü‚è‚É¶‚«‚Ä‚¢‚éLife‚ª3‚¾‚Æ¶‚«•Ô‚é
+     * äº‹å‰ã«æ­»ã‚“ã§ãŠã‚Šã€å‘¨ã‚Šã«ç”Ÿãã¦ã„ã‚‹LifeãŒ3ã ã¨ç”Ÿãè¿”ã‚‹
      */
     public void testSetLiveNext3FromDeathToLive() {
         // SetUp
@@ -109,7 +109,7 @@ public class LifeControllerTest extends ActivityInstrumentationTestCase2<MainAct
     }
 
     /**
-     * Ž–‘O‚É¶‚«‚Ä‚¨‚èAŽü‚è‚É¶‚«‚Ä‚¢‚éLife‚ª3‚¾‚Æ¶‚«‚½‚Ü‚Ü
+     * äº‹å‰ã«ç”Ÿãã¦ãŠã‚Šã€å‘¨ã‚Šã«ç”Ÿãã¦ã„ã‚‹LifeãŒ3ã ã¨ç”ŸããŸã¾ã¾
      */
     public void testSetLiveNext3FromLiveToLive() {
         // SetUp
@@ -125,7 +125,7 @@ public class LifeControllerTest extends ActivityInstrumentationTestCase2<MainAct
     }
 
     /**
-     * Ž–‘O‚ÉŽ€‚ñ‚Å‚¨‚èAŽü‚è‚É¶‚«‚Ä‚¢‚éLife‚ª3‚¾‚ÆŽ€‚ñ‚¾‚Ü‚Ü
+     * äº‹å‰ã«æ­»ã‚“ã§ãŠã‚Šã€å‘¨ã‚Šã«ç”Ÿãã¦ã„ã‚‹LifeãŒ3ã ã¨æ­»ã‚“ã ã¾ã¾
      */
     public void testSetLiveNext4FromDeathToDeath() {
         // SetUp
@@ -141,7 +141,7 @@ public class LifeControllerTest extends ActivityInstrumentationTestCase2<MainAct
     }
 
     /**
-     * Ž–‘O‚É¶‚«‚Ä‚¨‚èAŽü‚è‚É¶‚«‚Ä‚¢‚éLife‚ª4‚¾‚ÆŽ€‚Ê
+     * äº‹å‰ã«ç”Ÿãã¦ãŠã‚Šã€å‘¨ã‚Šã«ç”Ÿãã¦ã„ã‚‹LifeãŒ4ã ã¨æ­»ã¬
      */
     public void testSetLiveNext4FromLiveToDeath() {
         // SetUp
@@ -157,7 +157,7 @@ public class LifeControllerTest extends ActivityInstrumentationTestCase2<MainAct
     }
 
     /**
-     * Ž–‘O‚ÉŽ€‚ñ‚Å‚¨‚èAŽü‚è‚É¶‚«‚Ä‚¢‚éLife‚ª8‚¾‚ÆŽ€‚ñ‚¾‚Ü‚Ü
+     * äº‹å‰ã«æ­»ã‚“ã§ãŠã‚Šã€å‘¨ã‚Šã«ç”Ÿãã¦ã„ã‚‹LifeãŒ8ã ã¨æ­»ã‚“ã ã¾ã¾
      */
     public void testSetLiveNext8FromDeathToDeath() {
         // SetUp
@@ -173,7 +173,7 @@ public class LifeControllerTest extends ActivityInstrumentationTestCase2<MainAct
     }
 
     /**
-     * Ž–‘O‚É¶‚«‚Ä‚¨‚èAŽü‚è‚É¶‚«‚Ä‚¢‚éLife‚ª8‚¾‚ÆŽ€‚Ê
+     * äº‹å‰ã«ç”Ÿãã¦ãŠã‚Šã€å‘¨ã‚Šã«ç”Ÿãã¦ã„ã‚‹LifeãŒ8ã ã¨æ­»ã¬
      */
     public void testSetLiveNext8FromLiveToDeath() {
         // SetUp

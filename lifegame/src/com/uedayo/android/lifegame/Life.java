@@ -2,22 +2,22 @@ package com.uedayo.android.lifegame;
 
 public class Life {
 
-    // Œ»İ‚Ì¶€
+    // ç¾åœ¨ã®ç”Ÿæ­»
     private boolean currentLivingState = false;
-    // Ÿ‚Ì¶€
+    // æ¬¡ã®ç”Ÿæ­»
     private boolean nextLivingState = false;
     
     /**
-     * Ÿ‚Ì¶€‚ğƒZƒbƒg‚·‚é
+     * æ¬¡ã®ç”Ÿæ­»ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
      * 
-     * @param nextLivingState Ÿ‚É¶‚«‚Ä‚¢‚é‚È‚çtrue
+     * @param nextLivingState æ¬¡ã«ç”Ÿãã¦ã„ã‚‹ãªã‚‰true
      */
     public void setNextLivingState(boolean nextLivingState) {
         this.nextLivingState = nextLivingState;
     }
     
     /**
-     * ¶€‚ğXV‚·‚é
+     * ç”Ÿæ­»ã‚’æ›´æ–°ã™ã‚‹
      */
     public boolean updateLivingState() {
         currentLivingState = nextLivingState;
@@ -25,28 +25,28 @@ public class Life {
     }
 
     /**
-     * ¶€‚ğ”½“]‚·‚é
+     * ç”Ÿæ­»ã‚’åè»¢ã™ã‚‹
      */
     public void reverseLivingState() {
         currentLivingState = currentLivingState ? false : true;
     }
     
     /**
-     * Ÿ‚Ì¶€‚ğŠm”F‚·‚é(ƒeƒXƒg—p)
+     * æ¬¡ã®ç”Ÿæ­»ã‚’ç¢ºèªã™ã‚‹(ãƒ†ã‚¹ãƒˆç”¨)
      */
     boolean isLiveNext() {
         return nextLivingState;
     }
 
     /**
-     * ¡‚Ì¶€‚ğİ’è‚·‚é
+     * ä»Šã®ç”Ÿæ­»ã‚’è¨­å®šã™ã‚‹
      */
     void setLive(boolean live) {
         this.currentLivingState = live;
     }
     
     /**
-     * ¡‚Ì¶€‚ğŠm”F‚·‚é
+     * ä»Šã®ç”Ÿæ­»ã‚’ç¢ºèªã™ã‚‹
      */
     public boolean isLiving() {
         return currentLivingState;

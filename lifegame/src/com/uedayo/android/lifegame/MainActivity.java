@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity implements OnClickListener{
 
-    // Lifeƒ{ƒ^ƒ“‚ÌƒŠƒ\[ƒXid‚ğŠi”[‚·‚é”z—ñ
+    // Lifeãƒœã‚¿ãƒ³ã®ãƒªã‚½ãƒ¼ã‚¹idã‚’æ ¼ç´ã™ã‚‹é…åˆ—
     static final int[][] lifeButtons = {
         { R.id.btn_life11, R.id.btn_life12, R.id.btn_life13, R.id.btn_life14, R.id.btn_life15 },
         { R.id.btn_life21, R.id.btn_life22, R.id.btn_life23, R.id.btn_life24, R.id.btn_life25 },
@@ -29,11 +29,11 @@ public class MainActivity extends Activity implements OnClickListener{
         { R.id.btn_life51, R.id.btn_life52, R.id.btn_life53, R.id.btn_life54, R.id.btn_life55 }
     };
 
-    // ”z—ñ‚ÌsA—ñ‚ÌƒCƒ“ƒfƒbƒNƒX‚ÌÅ‘å’l
+    // é…åˆ—ã®è¡Œã€åˆ—ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã®æœ€å¤§å€¤
     static final int maxRowIndex = lifeButtons.length - 1;
     static final int maxColumnIndex = lifeButtons[0].length - 1;
 
-    // ƒrƒ…[
+    // ãƒ“ãƒ¥ãƒ¼
     Chronometer chronometer;
     TextView txtNumLife;
     Button btnStartstop;
@@ -41,21 +41,21 @@ public class MainActivity extends Activity implements OnClickListener{
     Button btnRanndom;
     Button btnReset;
 
-    // ó‘Ô
+    // çŠ¶æ…‹
     private boolean isStarted = false;
 
-    // ƒ^ƒCƒ}[
+    // ã‚¿ã‚¤ãƒãƒ¼
     private Timer timer;
     private TimerTask timerTask;
     private Handler mHandler;
 
-    // XVŠÔŠu
+    // æ›´æ–°é–“éš”
     private int refreshInterval;
 
-    // LifeController‚ğŠi”[‚·‚é”z—ñ
+    // LifeControllerã‚’æ ¼ç´ã™ã‚‹é…åˆ—
     LifeController[][] lifeControllers = new LifeController[lifeButtons.length][lifeButtons[0].length];
 
-    // üˆÍ‚Ì¶‚«‚Ä‚¢‚éLife‚Ì”‚ğŠi”[‚·‚é”z—ñ
+    // å‘¨å›²ã®ç”Ÿãã¦ã„ã‚‹Lifeã®æ•°ã‚’æ ¼ç´ã™ã‚‹é…åˆ—
     int[][] lifeCounter = new int[lifeButtons.length][lifeButtons[0].length];
 
     @Override
@@ -75,7 +75,7 @@ public class MainActivity extends Activity implements OnClickListener{
     }
 
     /**
-     * ƒrƒ…[‚ğ‰Šú‰»‚·‚é
+     * ãƒ“ãƒ¥ãƒ¼ã‚’åˆæœŸåŒ–ã™ã‚‹
      */
     public void setView() {
         setContentView(R.layout.activity_main);
@@ -86,7 +86,7 @@ public class MainActivity extends Activity implements OnClickListener{
     }
 
     /**
-     * ƒ{ƒ^ƒ“‚ğ‰Šú‰»‚·‚é
+     * ãƒœã‚¿ãƒ³ã‚’åˆæœŸåŒ–ã™ã‚‹
      */
     public void setButtons() {
         btnStartstop = (Button) findViewById(R.id.startstop);
@@ -100,7 +100,7 @@ public class MainActivity extends Activity implements OnClickListener{
     }
 
     /**
-     * LifeController‚ğƒZƒbƒg‚·‚é
+     * LifeControllerã‚’ã‚»ãƒƒãƒˆã™ã‚‹
      */
     private void setLifeController() {
         for(int i = 0; i < lifeButtons.length; i++) {
@@ -113,7 +113,7 @@ public class MainActivity extends Activity implements OnClickListener{
     }
 
     /**
-     * ˆê’èŠÔŠu‚¨‚«‚É‹N‚±‚éXVˆ—
+     * ä¸€å®šé–“éš”ãŠãã«èµ·ã“ã‚‹æ›´æ–°å‡¦ç†
      */
     private void refresh() {
         setNextLivingState();
@@ -122,7 +122,7 @@ public class MainActivity extends Activity implements OnClickListener{
     }
 
     /**
-     * Ÿ‚Ì¶€‚ğƒZƒbƒg‚·‚é
+     * æ¬¡ã®ç”Ÿæ­»ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
      */
     private void setNextLivingState() {
         for(int i = 0; i < lifeButtons.length; i++) {
@@ -134,7 +134,7 @@ public class MainActivity extends Activity implements OnClickListener{
     }
 
     /**
-     * Ÿ‚Ìó‘Ô‚ÉˆÚ‚é
+     * æ¬¡ã®çŠ¶æ…‹ã«ç§»ã‚‹
      */
     private void updateLivingStatus() {
         for(int i = 0; i < lifeButtons.length; i++) {
@@ -145,7 +145,7 @@ public class MainActivity extends Activity implements OnClickListener{
     }
 
     /**
-     * ü‚è‚Ì¶‚«‚Ä‚¢‚éLife‚Ì”‚ğ‰ÁZ‚·‚é
+     * å‘¨ã‚Šã®ç”Ÿãã¦ã„ã‚‹Lifeã®æ•°ã‚’åŠ ç®—ã™ã‚‹
      * @param i
      * @param j
      */
@@ -162,103 +162,103 @@ public class MainActivity extends Activity implements OnClickListener{
     }
 
     /**
-     * ¶ã‚ª¶‚«‚Ä‚¢‚ê‚ÎƒJƒEƒ“ƒg
+     * å·¦ä¸ŠãŒç”Ÿãã¦ã„ã‚Œã°ã‚«ã‚¦ãƒ³ãƒˆ
      * @param i
      * @param j
      */
     private void addTopLeft(int i, int j) {
-        // 1s–ÚA1—ñ–Ú‚Ì¶ã‚É‘¼‚ÌLife‚Í–³‚¢
+        // 1è¡Œç›®ã€1åˆ—ç›®ã®å·¦ä¸Šã«ä»–ã®Lifeã¯ç„¡ã„
         if(i != 0 && j != 0) {
             lifeCounter[i][j] += lifeControllers[i-1][j-1].isLiving() ? 1 : 0;
         }
     }
 
     /**
-     * ^ã‚ª¶‚«‚Ä‚¢‚ê‚ÎƒJƒEƒ“ƒg
+     * çœŸä¸ŠãŒç”Ÿãã¦ã„ã‚Œã°ã‚«ã‚¦ãƒ³ãƒˆ
      * @param i
      * @param j
      */
     private void addTop(int i, int j) {
-        // 1s–Ú‚Ìã‚É‘¼‚ÌLife‚Í–³‚¢
+        // 1è¡Œç›®ã®ä¸Šã«ä»–ã®Lifeã¯ç„¡ã„
         if(i != 0) {
             lifeCounter[i][j] += lifeControllers[i-1][j].isLiving() ? 1 : 0;
         }
     }
 
     /**
-     * ‰Eã‚ª¶‚«‚Ä‚¢‚ê‚ÎƒJƒEƒ“ƒg
+     * å³ä¸ŠãŒç”Ÿãã¦ã„ã‚Œã°ã‚«ã‚¦ãƒ³ãƒˆ
      * @param i
      * @param j
      */
     private void addTopRight(int i, int j) {
-        // 1s–ÚA––”ö‚Ì—ñ‚Ì‰Eã‚É‘¼‚ÌLife‚Í–³‚¢
+        // 1è¡Œç›®ã€æœ«å°¾ã®åˆ—ã®å³ä¸Šã«ä»–ã®Lifeã¯ç„¡ã„
         if(i != 0 && j != maxColumnIndex) {
             lifeCounter[i][j] += lifeControllers[i-1][j+1].isLiving() ? 1 : 0;
         }
     }
 
     /**
-     * ^¶‚ª¶‚«‚Ä‚¢‚ê‚ÎƒJƒEƒ“ƒg
+     * çœŸå·¦ãŒç”Ÿãã¦ã„ã‚Œã°ã‚«ã‚¦ãƒ³ãƒˆ
      * @param i
      * @param j
      */
     private void addLeft(int i, int j) {
-        // 1—ñ–Ú‚Ì¶‚É‘¼‚ÌLife‚Í–³‚¢
+        // 1åˆ—ç›®ã®å·¦ã«ä»–ã®Lifeã¯ç„¡ã„
         if(j != 0) {
             lifeCounter[i][j] += lifeControllers[i][j-1].isLiving() ? 1 : 0;
         }
     }
 
     /**
-     * ^‰E‚ª¶‚«‚Ä‚¢‚ê‚ÎƒJƒEƒ“ƒg
+     * çœŸå³ãŒç”Ÿãã¦ã„ã‚Œã°ã‚«ã‚¦ãƒ³ãƒˆ
      * @param i
      * @param j
      */
     private void addRight(int i, int j) {
-        // ––”ö‚Ì—ñ‚Ì‰E‚É‘¼‚ÌLife‚Í–³‚¢
+        // æœ«å°¾ã®åˆ—ã®å³ã«ä»–ã®Lifeã¯ç„¡ã„
         if(j != maxColumnIndex) {
             lifeCounter[i][j] += lifeControllers[i][j+1].isLiving() ? 1 : 0;
         }
     }
 
     /**
-     * ¶‰º‚ª¶‚«‚Ä‚¢‚ê‚ÎƒJƒEƒ“ƒg
+     * å·¦ä¸‹ãŒç”Ÿãã¦ã„ã‚Œã°ã‚«ã‚¦ãƒ³ãƒˆ
      * @param i
      * @param j
      */
     private void addBottomLeft(int i, int j) {
-        // ––”ö‚ÌsA1—ñ–Ú‚Ì¶‰º‚É‘¼‚ÌLife‚Í–³‚¢
+        // æœ«å°¾ã®è¡Œã€1åˆ—ç›®ã®å·¦ä¸‹ã«ä»–ã®Lifeã¯ç„¡ã„
         if(i != maxRowIndex && j != 0) {
             lifeCounter[i][j] += lifeControllers[i+1][j-1].isLiving() ? 1 : 0;
         }
     }
 
     /**
-     * ^‰º‚ª¶‚«‚Ä‚¢‚ê‚ÎƒJƒEƒ“ƒg
+     * çœŸä¸‹ãŒç”Ÿãã¦ã„ã‚Œã°ã‚«ã‚¦ãƒ³ãƒˆ
      * @param i
      * @param j
      */
     private void addBottom(int i, int j) {
-        // ––”ö‚Ìs‚Ì‰º‚É‘¼‚ÌLife‚Í–³‚¢
+        // æœ«å°¾ã®è¡Œã®ä¸‹ã«ä»–ã®Lifeã¯ç„¡ã„
         if(i != maxRowIndex) {
             lifeCounter[i][j] += lifeControllers[i+1][j].isLiving() ? 1 : 0;
         }
     }
 
     /**
-     * ‰E‰º‚ª¶‚«‚Ä‚¢‚ê‚ÎƒJƒEƒ“ƒg
+     * å³ä¸‹ãŒç”Ÿãã¦ã„ã‚Œã°ã‚«ã‚¦ãƒ³ãƒˆ
      * @param i
      * @param j
      */
     private void addBottomRight(int i, int j) {
-        // ––”ö‚ÌsA––”ö‚Ì—ñ‚Ì‰E‰º‚É‘¼‚ÌLife‚Í–³‚¢
+        // æœ«å°¾ã®è¡Œã€æœ«å°¾ã®åˆ—ã®å³ä¸‹ã«ä»–ã®Lifeã¯ç„¡ã„
         if(i != maxRowIndex && j != maxColumnIndex) {
             lifeCounter[i][j] += lifeControllers[i+1][j+1].isLiving() ? 1 : 0;
         }
     }
 
     /**
-     * ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚Ì“®ì
+     * ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸæ™‚ã®å‹•ä½œ
      */
     @Override
     public void onClick(View v) {
@@ -281,7 +281,7 @@ public class MainActivity extends Activity implements OnClickListener{
     }
 
     /**
-     * ŠJn‚Æ’†’f‚ğs‚¤
+     * é–‹å§‹ã¨ä¸­æ–­ã‚’è¡Œã†
      */
     private void onClickStartStop() {
         if(!isStarted) {
@@ -294,7 +294,7 @@ public class MainActivity extends Activity implements OnClickListener{
     }
 
     /**
-     * ŠJn‚·‚é
+     * é–‹å§‹ã™ã‚‹
      */
     private void startLifecycle() {
         if(isStarted) {
@@ -306,7 +306,7 @@ public class MainActivity extends Activity implements OnClickListener{
     }
 
     /**
-     * ƒ^ƒCƒ}[‚ğƒZƒbƒg‚·‚é
+     * ã‚¿ã‚¤ãƒãƒ¼ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
      */
     private void startTimer() {
         timer = new Timer();
@@ -326,7 +326,7 @@ public class MainActivity extends Activity implements OnClickListener{
     }
 
     /**
-     * I—¹‚·‚é
+     * çµ‚äº†ã™ã‚‹
      */
     private void stopLifecycle() {
         stopTimer();
@@ -335,7 +335,7 @@ public class MainActivity extends Activity implements OnClickListener{
     }
 
     /**
-     * ƒ^ƒCƒ}[‚ğ’â~‚·‚é
+     * ã‚¿ã‚¤ãƒãƒ¼ã‚’åœæ­¢ã™ã‚‹
      */
     private void stopTimer() {
         if (timer == null || timerTask == null) {
@@ -347,7 +347,7 @@ public class MainActivity extends Activity implements OnClickListener{
     }
     
     /**
-     * ƒXƒeƒbƒvÀs‚·‚é
+     * ã‚¹ãƒ†ãƒƒãƒ—å®Ÿè¡Œã™ã‚‹
      */
     private void onClickStep() {
         isStarted = false;
@@ -357,7 +357,7 @@ public class MainActivity extends Activity implements OnClickListener{
     }
 
     /**
-     * ŠeLife‚ÌŒ»İ‚Ì¶€‚ğƒ‰ƒ“ƒ_ƒ€‚Åİ’è‚·‚é
+     * å„Lifeã®ç¾åœ¨ã®ç”Ÿæ­»ã‚’ãƒ©ãƒ³ãƒ€ãƒ ã§è¨­å®šã™ã‚‹
      */
     private void onClickRandom() {
         stopLifecycle();
@@ -371,7 +371,7 @@ public class MainActivity extends Activity implements OnClickListener{
     }
 
     /**
-     * ‰æ–Ê‚ğ‰Šúó‘Ô‚É‚·‚é
+     * ç”»é¢ã‚’åˆæœŸçŠ¶æ…‹ã«ã™ã‚‹
      */
     private void onClickReset() {
         stopLifecycle();
@@ -385,7 +385,7 @@ public class MainActivity extends Activity implements OnClickListener{
     }
 
     /**
-     * ƒ^ƒCƒ}[‚ğƒŠƒZƒbƒg‚·‚é
+     * ã‚¿ã‚¤ãƒãƒ¼ã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹
      */
     private void resetChronometer() {
         chronometer.stop();
@@ -393,7 +393,7 @@ public class MainActivity extends Activity implements OnClickListener{
     }
 
     /**
-     * ƒ^ƒCƒ}[‚ğÄÀs‚·‚é
+     * ã‚¿ã‚¤ãƒãƒ¼ã‚’å†å®Ÿè¡Œã™ã‚‹
      */
     private void restartChronometer() {
         chronometer.setBase(SystemClock.elapsedRealtime());
@@ -401,14 +401,14 @@ public class MainActivity extends Activity implements OnClickListener{
     }
 
     /**
-     * ¶‚«‚Ä‚¢‚é”‚ğXV‚·‚é
+     * ç”Ÿãã¦ã„ã‚‹æ•°ã‚’æ›´æ–°ã™ã‚‹
      */
     private void updateNumLife() {
         txtNumLife.setText(Integer.toString(getNumLife()));
     }
 
     /**
-     * ¶‚«‚Ä‚¢‚é”‚ğƒJƒEƒ“ƒg‚·‚é
+     * ç”Ÿãã¦ã„ã‚‹æ•°ã‚’ã‚«ã‚¦ãƒ³ãƒˆã™ã‚‹
      */
     private int getNumLife() {
         int livingLifeNum = 0;

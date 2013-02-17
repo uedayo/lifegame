@@ -19,7 +19,7 @@ public class LifeTest extends AndroidTestCase {
     }
 
     /**
-     * Ÿ‚É¶‚«‚é‚æ‚¤‚ÉƒZƒbƒg‚·‚é
+     * æ¬¡ã«ç”Ÿãã‚‹ã‚ˆã†ã«ã‚»ãƒƒãƒˆã™ã‚‹
      */
     public void testSetLiveNextToLive() {
         // SetUp
@@ -34,7 +34,7 @@ public class LifeTest extends AndroidTestCase {
     }
 
     /**
-     * Ÿ‚É€‚Ê‚æ‚¤‚ÉƒZƒbƒg‚·‚é
+     * æ¬¡ã«æ­»ã¬ã‚ˆã†ã«ã‚»ãƒƒãƒˆã™ã‚‹
      */
     public void testSetLivingStateToDeath() {
         // SetUp
@@ -49,7 +49,7 @@ public class LifeTest extends AndroidTestCase {
     }
 
     /**
-     * ó‘Ô‚ğXV‚µ‚ÄŠm”F‚·‚é‚Æ¶‚«‚Ä‚¢‚é
+     * çŠ¶æ…‹ã‚’æ›´æ–°ã—ã¦ç¢ºèªã™ã‚‹ã¨ç”Ÿãã¦ã„ã‚‹
      */
     public void testRefreshToLive() {
         // SetUp
@@ -64,7 +64,7 @@ public class LifeTest extends AndroidTestCase {
     }
 
     /**
-     * ó‘Ô‚ğXV‚µ‚ÄŠm”F‚·‚é‚Æ€‚ñ‚Å‚¢‚é
+     * çŠ¶æ…‹ã‚’æ›´æ–°ã—ã¦ç¢ºèªã™ã‚‹ã¨æ­»ã‚“ã§ã„ã‚‹
      */
     public void testRefreshToDeath() {
         // SetUp
@@ -79,7 +79,7 @@ public class LifeTest extends AndroidTestCase {
     }
 
     /**
-     * ¡‚Ì¶€‚ğ”½“]‚³‚¹‚½Œ‹‰Ê¶‚«‚é
+     * ä»Šã®ç”Ÿæ­»ã‚’åè»¢ã•ã›ãŸçµæœç”Ÿãã‚‹
      */
     public void testChangeLivingStateToLive() {
         // SetUp
@@ -95,7 +95,7 @@ public class LifeTest extends AndroidTestCase {
     }
 
     /**
-     * Ÿ‚Ì¶€‚ğ”½“]‚³‚¹‚½Œ‹‰Ê€‚Ê
+     * æ¬¡ã®ç”Ÿæ­»ã‚’åè»¢ã•ã›ãŸçµæœæ­»ã¬
      */
     public void testChangeLivingStateToDeath() {
         // SetUp

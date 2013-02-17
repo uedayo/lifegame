@@ -15,7 +15,7 @@ public class LifeController {
     boolean nextLivingState;
 
     /**
-     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
      * 
      * @param button
      * @param life
@@ -28,7 +28,7 @@ public class LifeController {
     }
 
     /**
-     * ƒNƒŠƒbƒN‚µ‚½Û‚Ì“®ì‚ğƒZƒbƒg‚·‚é
+     * ã‚¯ãƒªãƒƒã‚¯ã—ãŸéš›ã®å‹•ä½œã‚’ã‚»ãƒƒãƒˆã™ã‚‹
      * 
      * @param button
      */
@@ -44,7 +44,7 @@ public class LifeController {
     }
 
     /**
-     * ¶€‚É‰‚¶‚Äƒ{ƒ^ƒ“‚Ì•\¦‚ğXV‚·‚é
+     * ç”Ÿæ­»ã«å¿œã˜ã¦ãƒœã‚¿ãƒ³ã®è¡¨ç¤ºã‚’æ›´æ–°ã™ã‚‹
      */
     private void refresh() {
         boolean living = life.isLiving();
@@ -54,33 +54,33 @@ public class LifeController {
     }
     
     /**
-     * Œ»İ‚Ì¶€‚ğ•Ô‚·
+     * ç¾åœ¨ã®ç”Ÿæ­»ã‚’è¿”ã™
      */
     public boolean isLiving() {
         return life.isLiving();
     }
     
     /**
-     * Ÿ‚Ì¶€‚ğƒZƒbƒg‚·‚é
+     * æ¬¡ã®ç”Ÿæ­»ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
      * 
-     * @param liveNum Œ»İ‚ÌüˆÍ‚Ì¶‚«‚Ä‚¢‚éLife‚Ì”
+     * @param liveNum ç¾åœ¨ã®å‘¨å›²ã®ç”Ÿãã¦ã„ã‚‹Lifeã®æ•°
      */
     public void setNextLivingState(int liveNum) {
         switch (liveNum) {
-            // 0,1‚Ìê‡A‰ß‘a‚É‚æ‚è€–Å
+            // 0,1ã®å ´åˆã€éç–ã«ã‚ˆã‚Šæ­»æ»…
             case 0:
             case 1:
                 nextLivingState = false;
                 break;
-            // 2‚Ìê‡AŒ»İ‚Ìó‘Ô‚ªŒp‘±
+            // 2ã®å ´åˆã€ç¾åœ¨ã®çŠ¶æ…‹ãŒç¶™ç¶š
             case 2:
                 nextLivingState = life.isLiving();
                 break;
-            // 3‚Ìê‡A€‚ñ‚Å‚¢‚éê‡‚Å‚àV‚½‚É¶¬
+            // 3ã®å ´åˆã€æ­»ã‚“ã§ã„ã‚‹å ´åˆã§ã‚‚æ–°ãŸã«ç”Ÿæˆ
             case 3:
                 nextLivingState = true;
                 break;
-            // 4ˆÈã‚Ìê‡A‰ß–§‚É‚æ‚è€–Å
+            // 4ä»¥ä¸Šã®å ´åˆã€éå¯†ã«ã‚ˆã‚Šæ­»æ»…
             default:
                 nextLivingState = false;
                 break;
@@ -89,7 +89,7 @@ public class LifeController {
     }
 
     /**
-     * Ÿ‚Ìó‘Ô‚É‘JˆÚ‚·‚é
+     * æ¬¡ã®çŠ¶æ…‹ã«é·ç§»ã™ã‚‹
      */
     public void update() {
         life.updateLivingState();
@@ -97,7 +97,7 @@ public class LifeController {
     }
 
     /**
-     * Œ»İ‚Ì¶€‚ğƒ‰ƒ“ƒ_ƒ€‚Éİ’è‚·‚é
+     * ç¾åœ¨ã®ç”Ÿæ­»ã‚’ãƒ©ãƒ³ãƒ€ãƒ ã«è¨­å®šã™ã‚‹
      */
     public void random() {
         int random = (int) Math.round(Math.random());
@@ -107,7 +107,7 @@ public class LifeController {
     }
 
     /**
-     * Œ»İ‚Ì¶€‚ğƒŠƒZƒbƒg‚·‚é(€‚Éİ’è‚·‚é)
+     * ç¾åœ¨ã®ç”Ÿæ­»ã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹(æ­»ã«è¨­å®šã™ã‚‹)
      */
     public void reset() {
         life.setLive(false);
