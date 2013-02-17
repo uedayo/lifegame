@@ -146,103 +146,78 @@ public class MainActivity extends Activity implements OnClickListener, RefreshLi
                 break;
             case R.id.btn_life11:
                 lifeMap.reverseLivingState(0,0);
-                refreshButtonStatus();
                 break;
             case R.id.btn_life12:
                 lifeMap.reverseLivingState(0,1);
-                refreshButtonStatus();
                 break;
             case R.id.btn_life13:
                 lifeMap.reverseLivingState(0,2);
-                refreshButtonStatus();
                 break;
             case R.id.btn_life14:
                 lifeMap.reverseLivingState(0,3);
-                refreshButtonStatus();
                 break;
             case R.id.btn_life15:
                 lifeMap.reverseLivingState(0,4);
-                refreshButtonStatus();
                 break;
             case R.id.btn_life21:
                 lifeMap.reverseLivingState(1,0);
-                refreshButtonStatus();
                 break;
             case R.id.btn_life22:
                 lifeMap.reverseLivingState(1,1);
-                refreshButtonStatus();
                 break;
             case R.id.btn_life23:
                 lifeMap.reverseLivingState(1,2);
-                refreshButtonStatus();
                 break;
             case R.id.btn_life24:
                 lifeMap.reverseLivingState(1,3);
-                refreshButtonStatus();
                 break;
             case R.id.btn_life25:
                 lifeMap.reverseLivingState(1,4);
-                refreshButtonStatus();
                 break;
             case R.id.btn_life31:
                 lifeMap.reverseLivingState(2,0);
-                refreshButtonStatus();
                 break;
             case R.id.btn_life32:
                 lifeMap.reverseLivingState(2,1);
-                refreshButtonStatus();
                 break;
             case R.id.btn_life33:
                 lifeMap.reverseLivingState(2,2);
-                refreshButtonStatus();
                 break;
             case R.id.btn_life34:
                 lifeMap.reverseLivingState(2,3);
-                refreshButtonStatus();
                 break;
             case R.id.btn_life35:
                 lifeMap.reverseLivingState(2,4);
-                refreshButtonStatus();
                 break;
             case R.id.btn_life41:
                 lifeMap.reverseLivingState(3,0);
-                refreshButtonStatus();
                 break;
             case R.id.btn_life42:
                 lifeMap.reverseLivingState(3,1);
-                refreshButtonStatus();
                 break;
             case R.id.btn_life43:
                 lifeMap.reverseLivingState(3,2);
-                refreshButtonStatus();
                 break;
             case R.id.btn_life44:
                 lifeMap.reverseLivingState(3,3);
-                refreshButtonStatus();
                 break;
             case R.id.btn_life45:
                 lifeMap.reverseLivingState(3,4);
-                refreshButtonStatus();
                 break;
             case R.id.btn_life51:
                 lifeMap.reverseLivingState(4,0);
-                refreshButtonStatus();
                 break;
             case R.id.btn_life52:
                 lifeMap.reverseLivingState(4,1);
-                refreshButtonStatus();
                 break;
             case R.id.btn_life53:
                 lifeMap.reverseLivingState(4,2);
-                refreshButtonStatus();
                 break;
             case R.id.btn_life54:
                 lifeMap.reverseLivingState(4,3);
-                refreshButtonStatus();
                 break;
             case R.id.btn_life55:
                 lifeMap.reverseLivingState(4,4);
-                refreshButtonStatus();
                 break;
             default:
                 break;
@@ -387,7 +362,7 @@ public class MainActivity extends Activity implements OnClickListener, RefreshLi
      * Lifeの画面状態を更新
      */
     @Override
-    public void refreshLife() {
+    public void refreshLifes() {
         refreshButtonStatus();
     }
 }

@@ -63,7 +63,7 @@ public class LifeMap {
                 lifeManagers[i][j].update();
             }
         }
-        listener.refreshLife();
+        listener.refreshLifes();
     }
 
     /**
@@ -196,6 +196,7 @@ public class LifeMap {
      */
     public void reverseLivingState(int row, int column) {
         lifeManagers[row][column].reverseLivingState();
+        listener.refreshLifes();
     }
 
     /**
@@ -207,7 +208,7 @@ public class LifeMap {
                 lifeManagers[i][j].random();
             }
         }
-        listener.refreshLife();
+        listener.refreshLifes();
     }
 
     /**
@@ -219,7 +220,7 @@ public class LifeMap {
                 lifeManagers[i][j].reset();
             }
         }
-        listener.refreshLife();
+        listener.refreshLifes();
     }
 
     /**
@@ -256,7 +257,7 @@ public class LifeMap {
         /**
          * 更新の要求を通知する
          */
-        public void refreshLife();
+        public void refreshLifes();
     }
     
     /**
