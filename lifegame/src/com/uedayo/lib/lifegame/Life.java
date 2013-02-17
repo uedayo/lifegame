@@ -1,4 +1,4 @@
-package com.uedayo.android.lifegame;
+package com.uedayo.lib.lifegame;
 
 public class Life {
 

@@ -1,7 +1,7 @@
 
-package com.uedayo.android.lifegame;
+package com.uedayo.lib.lifegame;
 
-import com.uedayo.android.lifegame.LifeManager.RefreshListener;
+import java.util.EventListener;
 
 /**
  * LifeMap
@@ -16,6 +16,9 @@ public class LifeMap {
     LifeManager[][] lifeManagers;
     // 周囲の生きているLifeの数を格納する配列
     int[][] lifeCounter;
+
+    // Refreshを通知するリスナー
+    RefreshListener listener = null;
 
     /**
      * コンストラクタ
@@ -34,7 +37,7 @@ public class LifeMap {
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < column; j++) {
                 lifeManagers[i][j] = new LifeManager();
-                lifeManagers[i][j].setListener(listener);
+                setListener(listener);
             }
         }
     }
@@ -60,6 +63,7 @@ public class LifeMap {
                 lifeManagers[i][j].update();
             }
         }
+        listener.refreshLife();
     }
 
     /**
@@ -203,6 +207,7 @@ public class LifeMap {
                 lifeManagers[i][j].random();
             }
         }
+        listener.refreshLife();
     }
 
     /**
@@ -214,6 +219,7 @@ public class LifeMap {
                 lifeManagers[i][j].reset();
             }
         }
+        listener.refreshLife();
     }
 
     /**
@@ -240,5 +246,32 @@ public class LifeMap {
      */
     public boolean isLiving(int row, int column) {
         return lifeManagers[row][column].isLiving();
+    }
+    
+    /**
+     * Lifeの状態更新のリスナー
+     */
+    public interface RefreshListener extends EventListener {
+        
+        /**
+         * 更新の要求を通知する
+         */
+        public void refreshLife();
+    }
+    
+    /**
+     * リスナーを追加する
+     * @param listener
+     */
+    public void setListener(RefreshListener listener) {
+        this.listener = listener;
+    }
+
+    /**
+     * リスナーを削除する
+     * @param listener
+     */
+    public void removeListener(RefreshListener listener) {
+        this.listener = null;
     }
 }

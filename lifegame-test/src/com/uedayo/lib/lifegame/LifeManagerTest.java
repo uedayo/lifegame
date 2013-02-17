@@ -1,5 +1,8 @@
 
-package com.uedayo.android.lifegame;
+package com.uedayo.lib.lifegame;
+
+import com.uedayo.android.lifegame.MainActivity;
+import com.uedayo.lib.lifegame.LifeManager;
 
 import android.test.ActivityInstrumentationTestCase2;
 

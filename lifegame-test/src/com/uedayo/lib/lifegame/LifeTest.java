@@ -1,5 +1,7 @@
 
-package com.uedayo.android.lifegame;
+package com.uedayo.lib.lifegame;
+
+import com.uedayo.lib.lifegame.Life;
 
 import android.test.AndroidTestCase;
 

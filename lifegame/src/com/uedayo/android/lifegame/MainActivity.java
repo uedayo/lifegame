@@ -3,9 +3,10 @@ package com.uedayo.android.lifegame;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.uedayo.android.lifegame.LifeManager.RefreshListener;
 import com.uedayo.android.lifegame.dao.SettingDAO;
 import com.uedayo.android.util.SharedPreferencesUtil;
+import com.uedayo.lib.lifegame.LifeMap;
+import com.uedayo.lib.lifegame.LifeMap.RefreshListener;
 
 import android.app.Activity;
 import android.graphics.drawable.Drawable;

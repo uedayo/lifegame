@@ -1,5 +1,5 @@
 
-package com.uedayo.android.lifegame;
+package com.uedayo.lib.lifegame;
 
 import java.util.EventListener;
 
@@ -10,8 +10,6 @@ public class LifeManager {
 
     Life life;
     boolean nextLivingState;
-    
-    private RefreshListener listener = null;
 
     /**
      * コンストラクタ
@@ -29,7 +27,7 @@ public class LifeManager {
     public boolean isLiving() {
         return life.isLiving();
     }
-    
+
     /**
      * 次の生死をセットする
      * 
@@ -37,7 +35,7 @@ public class LifeManager {
      */
     public void setNextLivingState(int liveNum) {
         switch (liveNum) {
-            // 0,1の場合、過疎により死滅
+        // 0,1の場合、過疎により死滅
             case 0:
             case 1:
                 nextLivingState = false;
@@ -63,7 +61,6 @@ public class LifeManager {
      */
     public void update() {
         life.updateLivingState();
-        listener.refreshLife();
     }
 
     /**
@@ -73,7 +70,6 @@ public class LifeManager {
         int random = (int) Math.round(Math.random());
         boolean isLiving = random == 1 ? true : false;
         life.setLive(isLiving);
-        listener.refreshLife();
     }
 
     /**
@@ -81,53 +77,27 @@ public class LifeManager {
      */
     public void reset() {
         life.setLive(false);
-        listener.refreshLife();
-    }
-    
-    /**
-     * Lifeの状態更新のリスナー
-     */
-    public interface RefreshListener extends EventListener {
-        
-        /**
-         * 更新の要求を通知する
-         */
-        public void refreshLife();
-    }
-    
-    /**
-     * リスナーを追加する
-     * @param listener
-     */
-    public void setListener(RefreshListener listener) {
-        this.listener = listener;
     }
 
-    /**
-     * リスナーを削除する
-     * @param listener
-     */
-    public void removeListener(RefreshListener listener) {
-        this.listener = null;
-    }
-    
     /**
      * 生死を反転する
      */
     public void reverseLivingState() {
         life.reverseLivingState();
     }
-    
+
     /**
      * 次に生きるか死ぬかを返す
+     * 
      * @return 生きる場合はtrue
      */
     public boolean isLiveNext() {
         return life.isLiveNext();
     }
-    
+
     /**
      * 今の生死を設定する
+     * 
      * @param live
      */
     public void setLive(boolean live) {
