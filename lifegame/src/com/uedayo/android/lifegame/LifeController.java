@@ -1,6 +1,8 @@
 
 package com.uedayo.android.lifegame;
 
+import java.util.EventListener;
+
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.View;
@@ -9,10 +11,11 @@ import android.widget.Button;
 
 public class LifeController {
 
-    Button button;
     Life life;
     Context context;
     boolean nextLivingState;
+    
+    private RefreshListener listener = null;
 
     /**
      * コンストラクタ
@@ -20,39 +23,11 @@ public class LifeController {
      * @param button
      * @param life
      */
-    public LifeController(Button button, Life life, Context context) {
-        this.button = button;
+    public LifeController(Life life, Context context) {
         this.life = life;
         this.context = context;
-        setOnClick();
     }
 
-    /**
-     * クリックした際の動作をセットする
-     * 
-     * @param button
-     */
-    private void setOnClick() {
-        button.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                LifeController.this.life.reverseLivingState();
-                refresh();
-            }
-        });
-    }
-
-    /**
-     * 生死に応じてボタンの表示を更新する
-     */
-    private void refresh() {
-        boolean living = life.isLiving();
-        int drawableId = living ? R.drawable.black : R.drawable.white;
-        Drawable background = context.getResources().getDrawable(drawableId);
-        button.setBackgroundDrawable(background);
-    }
-    
     /**
      * 現在の生死を返す
      */
@@ -93,7 +68,7 @@ public class LifeController {
      */
     public void update() {
         life.updateLivingState();
-        refresh();
+        listener.refreshLife();
     }
 
     /**
@@ -103,7 +78,7 @@ public class LifeController {
         int random = (int) Math.round(Math.random());
         boolean isLiving = random == 1 ? true : false;
         life.setLive(isLiving);
-        refresh();
+        listener.refreshLife();
     }
 
     /**
@@ -111,6 +86,33 @@ public class LifeController {
      */
     public void reset() {
         life.setLive(false);
-        refresh();
+        listener.refreshLife();
+    }
+    
+    /**
+     * Lifeの状態更新のリスナー
+     */
+    public interface RefreshListener extends EventListener {
+        
+        /**
+         * 更新の要求を通知する
+         */
+        public void refreshLife();
+    }
+    
+    /**
+     * リスナーを追加する
+     * @param listener
+     */
+    public void setListener(RefreshListener listener) {
+        this.listener = listener;
+    }
+
+    /**
+     * リスナーを削除する
+     * @param listener
+     */
+    public void removeListener(RefreshListener listener) {
+        this.listener = null;
     }
 }

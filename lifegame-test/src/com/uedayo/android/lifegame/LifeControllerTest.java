@@ -22,7 +22,7 @@ public class LifeControllerTest extends ActivityInstrumentationTestCase2<MainAct
         life = new Life();
         context = getActivity().getApplicationContext();
         button = new Button(context);
-        lifeController = new LifeController(button, life, context);
+        lifeController = new LifeController(life, context);
     }
 
     @Override

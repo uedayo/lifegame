@@ -3,11 +3,13 @@ package com.uedayo.android.lifegame;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.uedayo.android.lifegame.LifeController.RefreshListener;
 import com.uedayo.android.lifegame.dao.SettingDAO;
 import com.uedayo.android.util.SharedPreferencesUtil;
 
 import android.R.integer;
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -18,10 +20,10 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
 
-public class MainActivity extends Activity implements OnClickListener{
+public class MainActivity extends Activity implements OnClickListener, RefreshListener{
 
     // Lifeボタンのリソースidを格納する配列
-    static final int[][] lifeButtons = {
+    static final int[][] lifeButtonIds = {
         { R.id.btn_life11, R.id.btn_life12, R.id.btn_life13, R.id.btn_life14, R.id.btn_life15 },
         { R.id.btn_life21, R.id.btn_life22, R.id.btn_life23, R.id.btn_life24, R.id.btn_life25 },
         { R.id.btn_life31, R.id.btn_life32, R.id.btn_life33, R.id.btn_life34, R.id.btn_life35 },
@@ -30,8 +32,8 @@ public class MainActivity extends Activity implements OnClickListener{
     };
 
     // 配列の行、列のインデックスの最大値
-    static final int maxRowIndex = lifeButtons.length - 1;
-    static final int maxColumnIndex = lifeButtons[0].length - 1;
+    static final int maxRowIndex = lifeButtonIds.length - 1;
+    static final int maxColumnIndex = lifeButtonIds[0].length - 1;
 
     // ビュー
     Chronometer chronometer;
@@ -52,11 +54,17 @@ public class MainActivity extends Activity implements OnClickListener{
     // 更新間隔
     private int refreshInterval;
 
+    // Lifeを格納する配列
+    Life[][] lifes = new Life[lifeButtonIds.length][lifeButtonIds[0].length];
+    
+    // LifeButtonを格納する配列
+    Button[][] lifeButtons = new Button[lifeButtonIds.length][lifeButtonIds[0].length];
+
     // LifeControllerを格納する配列
-    LifeController[][] lifeControllers = new LifeController[lifeButtons.length][lifeButtons[0].length];
+    LifeController[][] lifeControllers = new LifeController[lifeButtonIds.length][lifeButtonIds[0].length];
 
     // 周囲の生きているLifeの数を格納する配列
-    int[][] lifeCounter = new int[lifeButtons.length][lifeButtons[0].length];
+    int[][] lifeCounter = new int[lifeButtonIds.length][lifeButtonIds[0].length];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,11 +111,13 @@ public class MainActivity extends Activity implements OnClickListener{
      * LifeControllerをセットする
      */
     private void setLifeController() {
-        for(int i = 0; i < lifeButtons.length; i++) {
-            for(int j = 0; j < lifeButtons[i].length; j++) {
-                Button btn = (Button) findViewById(lifeButtons[i][j]);
-                Life life = new Life();
-                lifeControllers[i][j] = new LifeController(btn, life, this);
+        for(int i = 0; i < lifeButtonIds.length; i++) {
+            for(int j = 0; j < lifeButtonIds[i].length; j++) {
+                lifeButtons[i][j] = (Button) findViewById(lifeButtonIds[i][j]);
+                lifeButtons[i][j].setOnClickListener(this);
+                lifes[i][j] = new Life();
+                lifeControllers[i][j] = new LifeController(lifes[i][j], this);
+                lifeControllers[i][j].setListener(this);
             }
         }
     }
@@ -125,8 +135,8 @@ public class MainActivity extends Activity implements OnClickListener{
      * 次の生死をセットする
      */
     private void setNextLivingState() {
-        for(int i = 0; i < lifeButtons.length; i++) {
-            for(int j = 0; j < lifeButtons[i].length; j++) {
+        for(int i = 0; i < lifeButtonIds.length; i++) {
+            for(int j = 0; j < lifeButtonIds[i].length; j++) {
                 updateLifeCounter(i, j);
                 lifeControllers[i][j].setNextLivingState(lifeCounter[i][j]);
             }
@@ -137,8 +147,8 @@ public class MainActivity extends Activity implements OnClickListener{
      * 次の状態に移る
      */
     private void updateLivingStatus() {
-        for(int i = 0; i < lifeButtons.length; i++) {
-            for(int j = 0; j < lifeButtons[i].length; j++) {
+        for(int i = 0; i < lifeButtonIds.length; i++) {
+            for(int j = 0; j < lifeButtonIds[i].length; j++) {
                 lifeControllers[i][j].update();
             }
         }
@@ -275,6 +285,106 @@ public class MainActivity extends Activity implements OnClickListener{
             case R.id.reset:
                 onClickReset();
                 break;
+            case R.id.btn_life11:
+                lifes[0][0].reverseLivingState();
+                refreshButtonStatus();
+                break;
+            case R.id.btn_life12:
+                lifes[0][1].reverseLivingState();
+                refreshButtonStatus();
+                break;
+            case R.id.btn_life13:
+                lifes[0][2].reverseLivingState();
+                refreshButtonStatus();
+                break;
+            case R.id.btn_life14:
+                lifes[0][3].reverseLivingState();
+                refreshButtonStatus();
+                break;
+            case R.id.btn_life15:
+                lifes[0][4].reverseLivingState();
+                refreshButtonStatus();
+                break;
+            case R.id.btn_life21:
+                lifes[1][0].reverseLivingState();
+                refreshButtonStatus();
+                break;
+            case R.id.btn_life22:
+                lifes[1][1].reverseLivingState();
+                refreshButtonStatus();
+                break;
+            case R.id.btn_life23:
+                lifes[1][2].reverseLivingState();
+                refreshButtonStatus();
+                break;
+            case R.id.btn_life24:
+                lifes[1][3].reverseLivingState();
+                refreshButtonStatus();
+                break;
+            case R.id.btn_life25:
+                lifes[1][4].reverseLivingState();
+                refreshButtonStatus();
+                break;
+            case R.id.btn_life31:
+                lifes[2][0].reverseLivingState();
+                refreshButtonStatus();
+                break;
+            case R.id.btn_life32:
+                lifes[2][1].reverseLivingState();
+                refreshButtonStatus();
+                break;
+            case R.id.btn_life33:
+                lifes[2][2].reverseLivingState();
+                refreshButtonStatus();
+                break;
+            case R.id.btn_life34:
+                lifes[2][3].reverseLivingState();
+                refreshButtonStatus();
+                break;
+            case R.id.btn_life35:
+                lifes[2][4].reverseLivingState();
+                refreshButtonStatus();
+                break;
+            case R.id.btn_life41:
+                lifes[3][0].reverseLivingState();
+                refreshButtonStatus();
+                break;
+            case R.id.btn_life42:
+                lifes[3][1].reverseLivingState();
+                refreshButtonStatus();
+                break;
+            case R.id.btn_life43:
+                lifes[3][2].reverseLivingState();
+                refreshButtonStatus();
+                break;
+            case R.id.btn_life44:
+                lifes[3][3].reverseLivingState();
+                refreshButtonStatus();
+                break;
+            case R.id.btn_life45:
+                lifes[3][4].reverseLivingState();
+                refreshButtonStatus();
+                break;
+            case R.id.btn_life51:
+                lifes[4][0].reverseLivingState();
+                refreshButtonStatus();
+                break;
+            case R.id.btn_life52:
+                lifes[4][1].reverseLivingState();
+                refreshButtonStatus();
+                break;
+            case R.id.btn_life53:
+                lifes[4][2].reverseLivingState();
+                refreshButtonStatus();
+                break;
+            case R.id.btn_life54:
+                lifes[4][3].reverseLivingState();
+                refreshButtonStatus();
+                break;
+            case R.id.btn_life55:
+                lifes[4][4].reverseLivingState();
+                refreshButtonStatus();
+                break;
             default:
                 break;
         }
@@ -361,8 +471,8 @@ public class MainActivity extends Activity implements OnClickListener{
      */
     private void onClickRandom() {
         stopLifecycle();
-        for(int i = 0; i < lifeButtons.length; i++) {
-            for(int j = 0; j < lifeButtons[i].length; j++) {
+        for(int i = 0; i < lifeButtonIds.length; i++) {
+            for(int j = 0; j < lifeButtonIds[i].length; j++) {
                 lifeControllers[i][j].random();
             }
         }
@@ -375,8 +485,8 @@ public class MainActivity extends Activity implements OnClickListener{
      */
     private void onClickReset() {
         stopLifecycle();
-        for(int i = 0; i < lifeButtons.length; i++) {
-            for(int j = 0; j < lifeButtons[i].length; j++) {
+        for(int i = 0; i < lifeButtonIds.length; i++) {
+            for(int j = 0; j < lifeButtonIds[i].length; j++) {
                 lifeControllers[i][j].reset();
             }
         }
@@ -412,11 +522,33 @@ public class MainActivity extends Activity implements OnClickListener{
      */
     private int getNumLife() {
         int livingLifeNum = 0;
-        for(int i = 0; i < lifeButtons.length; i++) {
-            for(int j = 0; j < lifeButtons[i].length; j++) {
+        for(int i = 0; i < lifeButtonIds.length; i++) {
+            for(int j = 0; j < lifeButtonIds[i].length; j++) {
                 livingLifeNum += lifeControllers[i][j].isLiving() ? 1 : 0;
             }
         }
         return livingLifeNum;
+    }
+    
+    /**
+     * 生死に応じてLifeの表示を更新する
+     */
+    private void refreshButtonStatus() {
+        for(int i=0; i < lifeButtonIds.length; i++) {
+            for(int j=0; j < lifeButtonIds[i].length; j++) {
+                boolean living = lifes[i][j].isLiving();
+                int drawableId = living ? R.drawable.black : R.drawable.white;
+                Drawable background = getResources().getDrawable(drawableId);
+                lifeButtons[i][j].setBackgroundDrawable(background);
+            }
+        }
+    }
+
+    /**
+     * Lifeの画面状態を更新
+     */
+    @Override
+    public void refreshLife() {
+        refreshButtonStatus();
     }
 }
